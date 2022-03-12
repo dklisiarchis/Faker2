@@ -133,7 +133,7 @@ class Person extends \Faker\Provider\Person
 
     /**
      * @example 'PhD'
-     * @return string
+     * @return  string
      */
     public static function suffix(): string
     {
@@ -142,7 +142,7 @@ class Person extends \Faker\Provider\Person
 
     /**
      * @example '123-45-6789'
-     * @return string
+     * @return  string
      */
     public static function ssn(): string
     {

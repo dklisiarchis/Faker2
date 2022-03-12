@@ -72,7 +72,7 @@ class Internet extends Base
 
     /**
      * @example 'jdoe@acme.biz'
-     * @return string
+     * @return  string
      */
     public function email(): string
     {
@@ -81,8 +81,8 @@ class Internet extends Base
     }
 
     /**
-     * @return string
-     * @throws Exception
+     * @return  string
+     * @throws  Exception
      * @example 'jdoe@example.com'
      */
     final public function safeEmail(): string
@@ -91,8 +91,8 @@ class Internet extends Base
     }
 
     /**
-     * @return string
-     * @throws Exception
+     * @return  string
+     * @throws  Exception
      * @example 'jdoe@gmail.com'
      */
     public function freeEmail(): string
@@ -101,8 +101,8 @@ class Internet extends Base
     }
 
     /**
-     * @return string
-     * @throws Exception
+     * @return  string
+     * @throws  Exception
      * @example 'jdoe@dawson.com'
      */
     public function companyEmail(): string
@@ -112,7 +112,7 @@ class Internet extends Base
 
     /**
      * @example 'gmail.com'
-     * @return string
+     * @return  string
      */
     public static function freeEmailDomain(): string
     {
@@ -121,7 +121,7 @@ class Internet extends Base
 
     /**
      * @example 'example.org'
-     * @return string
+     * @return  string
      */
     final public static function safeEmailDomain(): string
     {
@@ -135,8 +135,8 @@ class Internet extends Base
     }
 
     /**
-     * @return string
-     * @throws Exception
+     * @return  string
+     * @throws  Exception
      * @example 'jdoe'
      */
     public function userName(): string
@@ -157,9 +157,9 @@ class Internet extends Base
     }
 
     /**
-     * @param int $minLength
-     * @param int $maxLength
-     * @return string
+     * @param   int $minLength
+     * @param   int $maxLength
+     * @return  string
      * @example 'fY4èHdZv68'
      */
     public function password(int $minLength = 6, int $maxLength = 20): string
@@ -170,8 +170,8 @@ class Internet extends Base
     }
 
     /**
-     * @return string
-     * @throws Exception
+     * @return  string
+     * @throws  Exception
      * @example 'tiramisu.com'
      */
     public function domainName(): string
@@ -180,8 +180,8 @@ class Internet extends Base
     }
 
     /**
-     * @return string
-     * @throws Exception
+     * @return  string
+     * @throws  Exception
      * @example 'faber'
      */
     public function domainWord(): string
@@ -201,7 +201,7 @@ class Internet extends Base
 
     /**
      * @example 'com'
-     * @return string
+     * @return  string
      */
     public function tld(): string
     {
@@ -210,7 +210,7 @@ class Internet extends Base
 
     /**
      * @example 'http://www.runolfsdottir.com/'
-     * @return string
+     * @return  string
      */
     public function url(): string
     {
@@ -220,9 +220,9 @@ class Internet extends Base
     }
 
     /**
-     * @param int $nbWords
-     * @param bool $variableNbWords
-     * @return string
+     * @param   int  $nbWords
+     * @param   bool $variableNbWords
+     * @return  string
      * @example 'aut-repellat-commodi-vel-itaque-nihil-id-saepe-nostrum'
      */
     public function slug(int $nbWords = 6, bool $variableNbWords = true): string
@@ -240,7 +240,7 @@ class Internet extends Base
 
     /**
      * @example '237.149.115.38'
-     * @return string
+     * @return  string
      */
     public function ipv4(): string
     {
@@ -249,7 +249,7 @@ class Internet extends Base
 
     /**
      * @example '35cd:186d:3e23:2986:ef9f:5b41:42a4:e6f1'
-     * @return string
+     * @return  string
      */
     public function ipv6(): string
     {
@@ -263,7 +263,7 @@ class Internet extends Base
 
     /**
      * @example '10.1.1.17'
-     * @return string
+     * @return  string
      */
     public static function localIpv4(): string
     {
@@ -278,7 +278,7 @@ class Internet extends Base
 
     /**
      * @example '32:F1:39:2F:D6:18'
-     * @return string
+     * @return  string
      */
     public static function macAddress(): string
     {
@@ -290,7 +290,7 @@ class Internet extends Base
     }
 
     /**
-     * @param string $string
+     * @param  string $string
      * @return mixed
      */
     protected static function transliterate(string $string): mixed
@@ -310,7 +310,7 @@ class Internet extends Base
     }
 
     /**
-     * @param string $string
+     * @param  string $string
      * @return string
      */
     protected static function toAscii(string $string): string

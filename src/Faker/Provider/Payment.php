@@ -155,9 +155,9 @@ class Payment extends Base
     /**
      * Returns the String of a credit card number.
      *
-     * @param string|null  $type     Supporting any of 'Visa', 'MasterCard', 'American Express', and 'Discover'
-     * @param bool         $formatted Set to true if the output string should contain one separator every 4 digits
-     * @param string  $separator Separator string for formatting card number. Defaults to dash (-).
+     * @param  string|null $type      Supporting any of 'Visa', 'MasterCard', 'American Express', and 'Discover'
+     * @param  bool        $formatted Set to true if the output string should contain one separator every 4 digits
+     * @param  string      $separator Separator string for formatting card number. Defaults to dash (-).
      * @return string
      *
      * @example '4485480221084675'
@@ -184,8 +184,8 @@ class Payment extends Base
     }
 
     /**
-     * @param bool $valid True (by default) to get a valid expiration date, false to get a maybe valid date
-     * @return DateTime
+     * @param   bool $valid True (by default) to get a valid expiration date, false to get a maybe valid date
+     * @return  DateTime
      * @example 04/13
      */
     public function creditCardExpirationDate(bool $valid = true): DateTime
@@ -198,9 +198,9 @@ class Payment extends Base
     }
 
     /**
-     * @param bool $valid                True (by default) to get a valid expiration date, false to get a maybe valid date
-     * @param string|null  $expirationDateFormat
-     * @return string
+     * @param   bool        $valid                True (by default) to get a valid expiration date, false to get a maybe valid date
+     * @param   string|null $expirationDateFormat
+     * @return  string
      * @example '04/13'
      */
     public function creditCardExpirationDateString(bool $valid = true, ?string $expirationDateFormat = null): string
@@ -227,10 +227,10 @@ class Payment extends Base
     /**
      * International Bank Account Number (IBAN)
      *
-     * @link http://en.wikipedia.org/wiki/International_Bank_Account_Number
-     * @param  string|null  $countryCode ISO 3166-1 alpha-2 country code
-     * @param  string       $prefix      for generating bank account number of a specific bank
-     * @param  int|null     $length      total length without country code and 2 check digits
+     * @link   http://en.wikipedia.org/wiki/International_Bank_Account_Number
+     * @param  string|null $countryCode ISO 3166-1 alpha-2 country code
+     * @param  string      $prefix      for generating bank account number of a specific bank
+     * @param  int|null    $length      total length without country code and 2 check digits
      * @return string
      */
     public static function iban(?string $countryCode = null, string $prefix = '', ?int $length = null): string
@@ -263,16 +263,16 @@ class Payment extends Base
         $expandedFormat = substr($expandedFormat, strlen($result));
         foreach (str_split($expandedFormat) as $class) {
             switch ($class) {
-                default:
-                case 'c':
-                    $result .= mt_rand(0, 100) <= 50 ? static::randomDigit() : strtoupper(static::randomLetter());
-                    break;
-                case 'a':
-                    $result .= strtoupper(static::randomLetter());
-                    break;
-                case 'n':
-                    $result .= static::randomDigit();
-                    break;
+            default:
+            case 'c':
+                $result .= mt_rand(0, 100) <= 50 ? static::randomDigit() : strtoupper(static::randomLetter());
+                break;
+            case 'a':
+                $result .= strtoupper(static::randomLetter());
+                break;
+            case 'n':
+                $result .= static::randomDigit();
+                break;
             }
         }
 

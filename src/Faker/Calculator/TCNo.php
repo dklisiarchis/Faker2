@@ -19,7 +19,7 @@ class TCNo implements FakerCalculatorInterface
      *
      * https://en.wikipedia.org/wiki/Turkish_Identification_Number
      *
-     * @param string $value
+     * @param  string $value
      * @return string Checksum (two digit)
      */
     public static function checksum(string $value): string
@@ -49,7 +49,7 @@ class TCNo implements FakerCalculatorInterface
     /**
      * Checks whether a TCNo has a valid checksum
      *
-     * @param string $value
+     * @param  string $value
      * @return boolean
      */
     public static function isValid(string $value): bool

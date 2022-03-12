@@ -1,6 +1,6 @@
 ## About
 
-
+[![Continuous Integration](https://github.com/dklisiarchis/Faker2/actions/workflows/continuous-integration.yml/badge.svg)](https://github.com/dklisiarchis/Faker2/actions/workflows/continuous-integration.yml)
 [![Minimum PHP Version](https://img.shields.io/badge/php-%3E%3D%208.0-8892BF.svg?style=flat-square)](https://php.net/)
 [![Latest Stable Version](http://poser.pugx.org/dklis/faker2/v)](https://packagist.org/packages/dklis/faker2)
 [![License](http://poser.pugx.org/dklis/faker2/license)](https://packagist.org/packages/dklis/faker2)

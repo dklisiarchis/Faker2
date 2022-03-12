@@ -24,7 +24,8 @@ class Documentor
      */
     public function __construct(
         protected FakerGeneratorInterface $generator
-    ) {}
+    ) {
+    }
 
     /**
      * @return array

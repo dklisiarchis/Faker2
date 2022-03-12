@@ -7,4 +7,6 @@ namespace Faker\Api;
  * Base interface for providers
  */
 interface FakerProviderInterface
-{}
+{
+
+}

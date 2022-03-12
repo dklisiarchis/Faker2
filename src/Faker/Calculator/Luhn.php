@@ -23,7 +23,7 @@ use function preg_match;
 class Luhn implements FakerCalculatorInterface
 {
     /**
-     * @param string|int $value
+     * @param  string|int $value
      * @return int
      */
     public static function checksum(string|int $value): int
@@ -42,7 +42,7 @@ class Luhn implements FakerCalculatorInterface
     }
 
     /**
-     * @param string|int $partialNumber
+     * @param  string|int $partialNumber
      * @return string
      */
     public static function computeCheckDigit(string|int $partialNumber): string
@@ -58,7 +58,7 @@ class Luhn implements FakerCalculatorInterface
     /**
      * Checks whether a number (partial number + check digit) is Luhn compliant
      *
-     * @param string $value
+     * @param  string $value
      * @return bool
      */
     public static function isValid(string $value): bool

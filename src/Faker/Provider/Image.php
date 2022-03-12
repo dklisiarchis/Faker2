@@ -47,12 +47,12 @@ class Image extends Base
      *
      * @example 'http://lorempixel.com/640/480/?12345'
      *
-     * @param integer $width
-     * @param integer $height
+     * @param integer     $width
+     * @param integer     $height
      * @param string|null $category
-     * @param bool $randomize
+     * @param bool        $randomize
      * @param string|null $word
-     * @param bool $gray
+     * @param bool        $gray
      *
      * @return string
      */
@@ -93,15 +93,15 @@ class Image extends Base
      *
      * Requires curl, or allow_url_fopen to be on in php.ini.
      *
-     * @param string|null $dir
-     * @param int $width
-     * @param int $height
-     * @param string|null $category
-     * @param bool $fullPath
-     * @param bool $randomize
-     * @param bool|null $word
-     * @param bool $gray
-     * @return string
+     * @param   string|null $dir
+     * @param   int         $width
+     * @param   int         $height
+     * @param   string|null $category
+     * @param   bool        $fullPath
+     * @param   bool        $randomize
+     * @param   bool|null   $word
+     * @param   bool        $gray
+     * @return  string
      * @example '/path/to/dir/13b73edae8443990be1aa8f1a483bc27.jpg'
      */
     public static function image(

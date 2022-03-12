@@ -27,7 +27,7 @@ class UniqueGenerator implements FakerGeneratorInterface
 
     /**
      * @param Generator $generator
-     * @param integer $maxRetries
+     * @param integer   $maxRetries
      */
     public function __construct(
         protected FakerGeneratorInterface $generator,
@@ -38,7 +38,8 @@ class UniqueGenerator implements FakerGeneratorInterface
 
     /**
      * Catch and proxy all generator calls but return only unique values
-     * @param string $attribute
+     *
+     * @param  string $attribute
      * @return mixed
      */
     public function __get(string $attribute): mixed
@@ -48,8 +49,9 @@ class UniqueGenerator implements FakerGeneratorInterface
 
     /**
      * Catch and proxy all generator calls with arguments but return only unique values
-     * @param string $name
-     * @param array $arguments
+     *
+     * @param  string $name
+     * @param  array  $arguments
      * @return mixed
      */
     public function __call(string $name, array $arguments): mixed
@@ -74,7 +76,8 @@ class UniqueGenerator implements FakerGeneratorInterface
      * @inheritDoc
      */
     public function addProvider(FakerProviderInterface $provider): void
-    {}
+    {
+    }
 
     /**
      * @inheritDoc

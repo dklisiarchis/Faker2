@@ -20,9 +20,9 @@ class Biased extends Base
      * between $min and $max. Otherwise, two new doubles are created until the pair
      * is accepted.
      *
-     * @param int $min Minimum value of the generated integers.
-     * @param int $max Maximum value of the generated integers.
-     * @param callable|string $function A function mapping x ∈ [0, 1] onto a double ∈ [0, 1]
+     * @param  int             $min      Minimum value of the generated integers.
+     * @param  int             $max      Maximum value of the generated integers.
+     * @param  callable|string $function A function mapping x ∈ [0, 1] onto a double ∈ [0, 1]
      * @return int An integer between $min and $max.
      */
     public function biasedNumberBetween(int $min = 0, int $max = 100, callable|string $function = 'sqrt'): int
@@ -50,7 +50,7 @@ class Biased extends Base
      * 'linearLow' favors lower numbers. The probability decreases
      * in a linear fashion.
      *
-     * @param int|float $x
+     * @param  int|float $x
      * @return int|float
      */
     protected static function linearLow(int|float $x): int|float
@@ -61,7 +61,8 @@ class Biased extends Base
     /**
      * 'linearHigh' favors higher numbers. The probability increases
      * in a linear fashion.
-     * @param int|float $x
+     *
+     * @param  int|float $x
      * @return int|float
      */
     protected static function linearHigh(int|float $x): int|float

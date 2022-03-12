@@ -88,7 +88,7 @@ class Base implements FakerProviderInterface
     /**
      * Generates a random digit, which cannot be $except
      *
-     * @param int $except
+     * @param  int $except
      * @return int
      */
     public static function randomDigitNot(int $except = 0): int
@@ -105,8 +105,8 @@ class Base implements FakerProviderInterface
      *
      * The maximum value returned is mt_getrandmax()
      *
-     * @param int|null $nbDigits Defaults to a random number between 1 and 9
-     * @param bool $strict   Whether the returned number should have exactly $nbDigits
+     * @param   int|null $nbDigits Defaults to a random number between 1 and 9
+     * @param   bool     $strict   Whether the returned number should have exactly $nbDigits
      * @example 79907610
      *
      * @throws InvalidArgumentException
@@ -134,9 +134,9 @@ class Base implements FakerProviderInterface
     /**
      * Return a random float number
      *
-     * @param int|null       $nbMaxDecimals
-     * @param int|float|null $min
-     * @param int|float|null $max
+     * @param   int|null       $nbMaxDecimals
+     * @param   int|float|null $min
+     * @param   int|float|null $max
      * @example 48.8932
      *
      * @return float
@@ -169,8 +169,8 @@ class Base implements FakerProviderInterface
     /**
      * Returns a random number between $int1 and $int2 (any order)
      *
-     * @param int $int1 default to 0
-     * @param int $int2 defaults to 32 bit max integer, ie 2147483647
+     * @param   int $int1 default to 0
+     * @param   int $int2 defaults to 32 bit max integer, ie 2147483647
      * @example 79907610
      *
      * @return int
@@ -206,6 +206,7 @@ class Base implements FakerProviderInterface
 
     /**
      * Returns a random ASCII character (excluding accents and special chars)
+     *
      * @return string
      */
     public static function randomAscii(): string
@@ -216,9 +217,9 @@ class Base implements FakerProviderInterface
     /**
      * Returns randomly ordered subsequence of $count elements from a provided array
      *
-     * @param  string[]        $array           Array to take elements from. Defaults to a-c
-     * @param  int             $count           Number of elements to take.
-     * @param  bool            $allowDuplicates Allow elements to be picked several times. Defaults to false
+     * @param  string[] $array           Array to take elements from. Defaults to a-c
+     * @param  int      $count           Number of elements to take.
+     * @param  bool     $allowDuplicates Allow elements to be picked several times. Defaults to false
      * @throws LengthException When requesting more elements than provided
      *
      * @return array New array with $count elements from $array
@@ -308,7 +309,7 @@ class Base implements FakerProviderInterface
      * @see shuffleArray()
      * @see shuffleString()
      *
-     * @param array|string $arg The set to shuffle
+     * @param  array|string $arg The set to shuffle
      * @return array|string The shuffled set
      */
     public static function shuffle(array|string $arg = ''): array|string
@@ -336,7 +337,7 @@ class Base implements FakerProviderInterface
      *
      * @example $faker->shuffleArray([1, 2, 3]); // [2, 1, 3]
      *
-     * @param array $array The set to shuffle
+     * @param  array $array The set to shuffle
      * @return array The shuffled set
      */
     public static function shuffleArray(array $array = []): array
@@ -374,8 +375,8 @@ class Base implements FakerProviderInterface
      *
      * @example $faker->shuffleString('hello, world'); // 'rlo,h eold!lw'
      *
-     * @param string $string The set to shuffle
-     * @param string $encoding The string encoding (defaults to UTF-8)
+     * @param  string $string   The set to shuffle
+     * @param  string $encoding The string encoding (defaults to UTF-8)
      * @return string The shuffled set
      */
     public static function shuffleString(string $string = '', string $encoding = 'UTF-8'): string
@@ -394,9 +395,9 @@ class Base implements FakerProviderInterface
     }
 
     /**
-     * @param string $string
-     * @param string $wildcard
-     * @param string|callable|array $callback
+     * @param  string                $string
+     * @param  string                $wildcard
+     * @param  string|callable|array $callback
      * @return string
      */
     private static function replaceWildcard(
@@ -471,9 +472,11 @@ class Base implements FakerProviderInterface
      */
     public static function bothify(string $string = '## ??'): string
     {
-        $string = self::replaceWildcard($string, '*', function () {
-            return mt_rand(0, 1) ? '#' : '?';
-        });
+        $string = self::replaceWildcard(
+            $string, '*', function () {
+                return mt_rand(0, 1) ? '#' : '?';
+            }
+        );
         return static::lexify(static::numerify($string));
     }
 
@@ -513,7 +516,7 @@ class Base implements FakerProviderInterface
      *
      * @see https://github.com/icomefromthenet/ReverseRegex for a more robust implementation
      *
-     * @param string $regex A regular expression (delimiters are optional)
+     * @param  string $regex A regular expression (delimiters are optional)
      * @return string
      */
     public static function regexify(string $regex = ''): string
@@ -528,31 +531,45 @@ class Base implements FakerProviderInterface
         $regex = preg_replace('/(?<!\\\)\*/', '{0,' . static::randomDigitNotNull() . '}', $regex);
         $regex = preg_replace('/(?<!\\\)\+/', '{1,' . static::randomDigitNotNull() . '}', $regex);
         // [12]{1,2} becomes [12] or [12][12]
-        $regex = preg_replace_callback('/(\[[^\]]+\])\{(\d+),(\d+)\}/', function ($matches) {
-            return str_repeat($matches[1], (int) Base::randomElement(range($matches[2], $matches[3])));
-        }, $regex);
+        $regex = preg_replace_callback(
+            '/(\[[^\]]+\])\{(\d+),(\d+)\}/', function ($matches) {
+                return str_repeat($matches[1], (int) Base::randomElement(range($matches[2], $matches[3])));
+            }, $regex
+        );
         // (12|34){1,2} becomes (12|34) or (12|34)(12|34)
-        $regex = preg_replace_callback('/(\([^\)]+\))\{(\d+),(\d+)\}/', function ($matches) {
-            return str_repeat($matches[1], (int) Base::randomElement(range($matches[2], $matches[3])));
-        }, $regex);
+        $regex = preg_replace_callback(
+            '/(\([^\)]+\))\{(\d+),(\d+)\}/', function ($matches) {
+                return str_repeat($matches[1], (int) Base::randomElement(range($matches[2], $matches[3])));
+            }, $regex
+        );
         // A{1,2} becomes A or AA or \d{3} becomes \d\d\d
-        $regex = preg_replace_callback('/(\\\?.)\{(\d+),(\d+)\}/', function ($matches) {
-            return str_repeat($matches[1],(int) Base::randomElement(range($matches[2], $matches[3])));
-        }, $regex);
+        $regex = preg_replace_callback(
+            '/(\\\?.)\{(\d+),(\d+)\}/', function ($matches) {
+                return str_repeat($matches[1], (int) Base::randomElement(range($matches[2], $matches[3])));
+            }, $regex
+        );
         // (this|that) becomes 'this' or 'that'
-        $regex = preg_replace_callback('/\((.*?)\)/', function ($matches) {
-            return Base::randomElement(explode('|', str_replace(array('(', ')'), '', $matches[1])));
-        }, $regex);
+        $regex = preg_replace_callback(
+            '/\((.*?)\)/', function ($matches) {
+                return Base::randomElement(explode('|', str_replace(array('(', ')'), '', $matches[1])));
+            }, $regex
+        );
         // All A-F inside of [] become ABCDEF
-        $regex = preg_replace_callback('/\[([^\]]+)\]/', function ($matches) {
-            return '[' . preg_replace_callback('/(\w|\d)\-(\w|\d)/', function ($range) {
-                return implode('', range($range[1], $range[2]));
-            }, $matches[1]) . ']';
-        }, $regex);
+        $regex = preg_replace_callback(
+            '/\[([^\]]+)\]/', function ($matches) {
+                return '[' . preg_replace_callback(
+                    '/(\w|\d)\-(\w|\d)/', function ($range) {
+                        return implode('', range($range[1], $range[2]));
+                    }, $matches[1]
+                ) . ']';
+            }, $regex
+        );
         // All [ABC] become B (or A or C)
-        $regex = preg_replace_callback('/\[([^\]]+)\]/', function ($matches) {
-            return Base::randomElement(str_split($matches[1]));
-        }, $regex);
+        $regex = preg_replace_callback(
+            '/\[([^\]]+)\]/', function ($matches) {
+                return Base::randomElement(str_split($matches[1]));
+            }, $regex
+        );
         // replace \d with number and \w with letter and . with ascii
         $regex = preg_replace_callback('/\\\w/', 'static::randomLetter', $regex);
         $regex = preg_replace_callback('/\\\d/', 'static::randomDigit', $regex);
@@ -589,11 +606,12 @@ class Base implements FakerProviderInterface
     /**
      * Chainable method for making any formatter optional.
      *
-     * @param float|integer $weight Set the probability of receiving a null value.
-     *                              "0" will always return null, "1" will always return the generator.
-     *                              If $weight is an integer value, then the same system works
-     *                              between 0 (always get false) and 100 (always get true).
-     * @param string|int|float|null $default
+     * @param  float|integer         $weight  Set the probability of receiving a null value.
+     *                                        "0" will always return null, "1" will always
+     *                                        return the generator. If $weight is an integer
+     *                                        value, then the same system works between 0
+     *                                        (always get false) and 100 (always get true).
+     * @param  string|int|float|null $default
      * @return FakerGeneratorInterface
      */
     public function optional(float|int $weight = 0.5, string|int|float|null $default = null): FakerGeneratorInterface
@@ -618,9 +636,9 @@ class Base implements FakerProviderInterface
      * $faker->unique()->randomElement(array(1, 2, 3));
      * </code>
      *
-     * @param bool $reset      If set to true, resets the list of existing values
-     * @param int  $maxRetries Maximum number of retries to find a unique value,
-     *                                       After which an OverflowException is thrown.
+     * @param  bool $reset      If set to true, resets the list of existing values
+     * @param  int  $maxRetries Maximum number of retries to find a unique value,
+     *                          After which an OverflowException is thrown.
      * @throws OverflowException When no unique value can be found by iterating $maxRetries times
      *
      * @return UniqueGenerator A proxy class returning only non-existing values
@@ -650,9 +668,9 @@ class Base implements FakerProviderInterface
      * print_r($values); // [0, 4, 8, 4, 2, 6, 0, 8, 8, 6]
      * </code>
      *
-     * @param callable|null $validator  A function returning true for valid values
-     * @param integer       $maxRetries Maximum number of retries to find a unique value,
-     *                            After which an OverflowException is thrown.
+     * @param  callable|null $validator  A function returning true for valid values
+     * @param  integer       $maxRetries Maximum number of retries to find a unique value,
+     *                                   After which an OverflowException is thrown.
      * @throws OverflowException When no valid value can be found by iterating $maxRetries times
      *
      * @return ValidGenerator A proxy class returning only valid values

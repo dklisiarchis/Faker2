@@ -46,7 +46,7 @@ class Factory
     /**
      * Create a new generator
      *
-     * @param string $locale
+     * @param  string $locale
      * @return Generator
      */
     public static function create(string $locale = self::DEFAULT_LOCALE): FakerGeneratorInterface
@@ -61,8 +61,8 @@ class Factory
     }
 
     /**
-     * @param string $provider
-     * @param string $locale
+     * @param  string $provider
+     * @param  string $locale
      * @return string
      */
     protected static function getProviderClassname(string $provider, string $locale = ''): string
@@ -85,8 +85,8 @@ class Factory
     }
 
     /**
-     * @param string $provider
-     * @param string $locale
+     * @param  string $provider
+     * @param  string $locale
      * @return string
      */
     protected static function findProviderClassname(string $provider, string $locale = ''): string

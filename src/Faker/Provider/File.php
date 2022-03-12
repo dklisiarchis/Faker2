@@ -28,7 +28,7 @@ class File extends Base
     /**
      * MIME types from the apache.org file. Some types are truncated.
      *
-     * @var array Map of MIME types => file extension(s)
+     * @var  array Map of MIME types => file extension(s)
      * @link http://svn.apache.org/repos/asf/httpd/httpd/trunk/docs/conf/mime.types
      */
     protected static array $mimeTypes = [
@@ -561,7 +561,7 @@ class File extends Base
     /**
      * Get a random MIME type
      *
-     * @return string
+     * @return  string
      * @example 'video/avi'
      */
     public static function mimeType(): string
@@ -573,7 +573,7 @@ class File extends Base
      * Get a random file extension (without a dot)
      *
      * @example avi
-     * @return string
+     * @return  string
      */
     public static function fileExtension(): string
     {
@@ -585,9 +585,9 @@ class File extends Base
     /**
      * Copy a random file from the source directory to the target directory and returns the filename/fullpath
      *
-     * @param  string  $sourceDirectory The directory to look for random file taking
-     * @param  string  $targetDirectory
-     * @param  bool    $fullPath        Whether to have the full path or just the filename
+     * @param  string $sourceDirectory The directory to look for random file taking
+     * @param  string $targetDirectory
+     * @param  bool   $fullPath        Whether to have the full path or just the filename
      * @return string
      */
     public static function file(
@@ -608,9 +608,11 @@ class File extends Base
         }
 
         // Drop . and .. and reset array keys
-        $files = array_filter(array_values(array_diff(scandir($sourceDirectory), ['.', '..'])), function ($file) use ($sourceDirectory) {
-            return is_file($sourceDirectory . DIRECTORY_SEPARATOR . $file) && is_readable($sourceDirectory . DIRECTORY_SEPARATOR . $file);
-        });
+        $files = array_filter(
+            array_values(array_diff(scandir($sourceDirectory), ['.', '..'])), function ($file) use ($sourceDirectory) {
+                return is_file($sourceDirectory . DIRECTORY_SEPARATOR . $file) && is_readable($sourceDirectory . DIRECTORY_SEPARATOR . $file);
+            }
+        );
 
         if (empty($files)) {
             throw new InvalidArgumentException(sprintf('Source directory %s is empty.', $sourceDirectory));

@@ -83,9 +83,9 @@ class HtmlLorem extends Base
     }
 
     /**
-     * @param DOMElement $root
-     * @param int $maxDepth
-     * @param int $maxWidth
+     * @param  DOMElement $root
+     * @param  int        $maxDepth
+     * @param  int        $maxWidth
      * @return DOMElement
      * @throws DOMException
      */
@@ -111,7 +111,7 @@ class HtmlLorem extends Base
     }
 
     /**
-     * @param DOMElement $node
+     * @param  DOMElement $node
      * @return void
      * @throws DOMException
      */
@@ -119,56 +119,56 @@ class HtmlLorem extends Base
     {
         $rand = mt_rand(1, 10);
         switch ($rand) {
-            case 1:
-                $this->addRandomP($node);
-                break;
-            case 2:
-                $this->addRandomA($node);
-                break;
-            case 3:
-                $this->addRandomSpan($node);
-                break;
-            case 4:
-                $this->addRandomUL($node);
-                break;
-            case 5:
-                $this->addRandomH($node);
-                break;
-            case 6:
-                $this->addRandomB($node);
-                break;
-            case 7:
-                $this->addRandomI($node);
-                break;
-            case 8:
-                $this->addRandomTable($node);
-                break;
-            default:
-                $this->addRandomText($node);
-                break;
+        case 1:
+            $this->addRandomP($node);
+            break;
+        case 2:
+            $this->addRandomA($node);
+            break;
+        case 3:
+            $this->addRandomSpan($node);
+            break;
+        case 4:
+            $this->addRandomUL($node);
+            break;
+        case 5:
+            $this->addRandomH($node);
+            break;
+        case 6:
+            $this->addRandomB($node);
+            break;
+        case 7:
+            $this->addRandomI($node);
+            break;
+        case 8:
+            $this->addRandomTable($node);
+            break;
+        default:
+            $this->addRandomText($node);
+            break;
         }
     }
 
     /**
-     * @param DOMElement $node
+     * @param  DOMElement $node
      * @return void
      */
     private function addRandomAttribute(DOMElement $node): void
     {
         $rand = mt_rand(1, 2);
         switch ($rand) {
-            case 1:
-                $node->setAttribute("class", $this->generator->word);
-                break;
-            case 2:
-                $node->setAttribute("id", (string)$this->idGenerator->randomNumber(5));
-                break;
+        case 1:
+            $node->setAttribute("class", $this->generator->word);
+            break;
+        case 2:
+            $node->setAttribute("id", (string)$this->idGenerator->randomNumber(5));
+            break;
         }
     }
 
     /**
-     * @param DOMElement $element
-     * @param int $maxLength
+     * @param  DOMElement $element
+     * @param  int        $maxLength
      * @return void
      * @throws DOMException
      */
@@ -181,8 +181,8 @@ class HtmlLorem extends Base
     }
 
     /**
-     * @param DOMElement $element
-     * @param int $maxLength
+     * @param  DOMElement $element
+     * @param  int        $maxLength
      * @return void
      */
     private function addRandomText(DOMElement $element, int $maxLength = 10): void
@@ -192,8 +192,8 @@ class HtmlLorem extends Base
     }
 
     /**
-     * @param DOMElement $element
-     * @param int $maxLength
+     * @param  DOMElement $element
+     * @param  int        $maxLength
      * @return void
      * @throws DOMException
      */
@@ -207,8 +207,8 @@ class HtmlLorem extends Base
     }
 
     /**
-     * @param DOMElement $element
-     * @param int $maxLength
+     * @param  DOMElement $element
+     * @param  int        $maxLength
      * @return void
      * @throws DOMException
      */
@@ -221,8 +221,8 @@ class HtmlLorem extends Base
     }
 
     /**
-     * @param DOMElement $element
-     * @param int $maxLength
+     * @param  DOMElement $element
+     * @param  int        $maxLength
      * @return void
      * @throws DOMException
      */
@@ -236,8 +236,8 @@ class HtmlLorem extends Base
     }
 
     /**
-     * @param DOMElement $element
-     * @param int $maxLength
+     * @param  DOMElement $element
+     * @param  int        $maxLength
      * @return void
      * @throws DOMException
      */
@@ -250,8 +250,8 @@ class HtmlLorem extends Base
     }
 
     /**
-     * @param DOMElement $element
-     * @param int $maxLength
+     * @param  DOMElement $element
+     * @param  int        $maxLength
      * @return void
      * @throws DOMException
      */
@@ -264,8 +264,8 @@ class HtmlLorem extends Base
     }
 
     /**
-     * @param DOMElement $element
-     * @param int $maxLength
+     * @param  DOMElement $element
+     * @param  int        $maxLength
      * @return void
      * @throws DOMException
      */
@@ -278,7 +278,7 @@ class HtmlLorem extends Base
     }
 
     /**
-     * @param DOMElement $element
+     * @param  DOMElement $element
      * @return void
      * @throws DOMException
      */
@@ -352,9 +352,9 @@ class HtmlLorem extends Base
     }
 
     /**
-     * @param DOMElement $element
-     * @param int $maxItems
-     * @param int $maxLength
+     * @param  DOMElement $element
+     * @param  int        $maxItems
+     * @param  int        $maxLength
      * @return void
      * @throws DOMException
      */

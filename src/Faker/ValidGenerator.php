@@ -22,9 +22,9 @@ class ValidGenerator implements FakerGeneratorInterface
 {
 
     /**
-     * @param Generator     $generator
-     * @param Closure|null  $validator
-     * @param integer       $maxRetries
+     * @param Generator    $generator
+     * @param Closure|null $validator
+     * @param integer      $maxRetries
      */
     public function __construct(
         protected FakerGeneratorInterface $generator,
@@ -41,11 +41,12 @@ class ValidGenerator implements FakerGeneratorInterface
     }
 
     /**
-     * @param FakerProviderInterface $provider
+     * @param  FakerProviderInterface $provider
      * @return void
      */
     public function addProvider(FakerProviderInterface $provider): void
-    {}
+    {
+    }
 
     /**
      * @return FakerProviderInterface[]
@@ -57,6 +58,7 @@ class ValidGenerator implements FakerGeneratorInterface
 
     /**
      * Catch and proxy all generator calls but return only valid values
+     *
      * @param string $attribute
      *
      * @return mixed
@@ -68,8 +70,9 @@ class ValidGenerator implements FakerGeneratorInterface
 
     /**
      * Catch and proxy all generator calls with arguments but return only valid values
+     *
      * @param string $name
-     * @param array $arguments
+     * @param array  $arguments
      *
      * @return mixed
      */

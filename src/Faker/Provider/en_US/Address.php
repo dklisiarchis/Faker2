@@ -117,7 +117,7 @@ class Address extends \Faker\Provider\Address
 
     /**
      * @example 'East'
-     * @return string
+     * @return  string
      */
     public static function cityPrefix(): string
     {
@@ -126,7 +126,7 @@ class Address extends \Faker\Provider\Address
 
     /**
      * @example 'Appt. 350'
-     * @return string
+     * @return  string
      */
     public static function secondaryAddress(): string
     {
@@ -135,7 +135,7 @@ class Address extends \Faker\Provider\Address
 
     /**
      * @example 'California'
-     * @return string
+     * @return  string
      */
     public static function state(): string
     {
@@ -144,7 +144,7 @@ class Address extends \Faker\Provider\Address
 
     /**
      * @example 'CA'
-     * @return string
+     * @return  string
      */
     public static function stateAbbr(): string
     {

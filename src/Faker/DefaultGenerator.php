@@ -17,7 +17,8 @@ class DefaultGenerator implements FakerGeneratorInterface
      */
     public function __construct(
         protected string|int|float|null $default = null
-    ) {}
+    ) {
+    }
 
     /**
      * @param string $attribute
@@ -31,7 +32,7 @@ class DefaultGenerator implements FakerGeneratorInterface
 
     /**
      * @param string $method
-     * @param array $attributes
+     * @param array  $attributes
      *
      * @return string|int|float|null
      */
@@ -41,7 +42,8 @@ class DefaultGenerator implements FakerGeneratorInterface
     }
 
     public function addProvider(FakerProviderInterface $provider): void
-    {}
+    {
+    }
 
     public function getProviders(): array
     {

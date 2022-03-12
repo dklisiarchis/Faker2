@@ -37,7 +37,7 @@ class Payment extends \Faker\Provider\Payment
     }
 
     /**
-     * @param array|string $routing
+     * @param  array|string $routing
      * @return int
      */
     public static function calculateRoutingNumberChecksum(array|string $routing = ['122105155']): int

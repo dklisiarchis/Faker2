@@ -18,6 +18,7 @@ abstract class Text extends Base
 
     /**
      * Base text
+     *
      * @var string
      */
     protected static string $baseText = '';
@@ -55,12 +56,12 @@ abstract class Text extends Base
      * possible following words as the value.
      *
      * @example 'Alice, swallowing down her flamingo, and began by taking the little golden key'
-     * @param int $maxNbChars Maximum number of characters the text should contain (minimum: 10)
-     * @param int $indexSize  Determines how many words are considered for the generation of the next word.
-     *                             The minimum is 1, and it produces a higher level of randomness, although the
-     *                             generated text usually doesn't make sense. Higher index sizes (up to 5)
-     *                             produce more correct text, at the price of less randomness.
-     * @return string
+     * @param   int $maxNbChars Maximum number of characters the text should contain (minimum: 10)
+     * @param   int $indexSize  Determines how many words are considered for the generation of the next word.
+     *                          The minimum is 1, and it produces a higher level of randomness, although the
+     *                          generated text usually doesn't make sense. Higher index sizes (up to 5)
+     *                          produce more correct text, at the price of less randomness.
+     * @return  string
      */
     public function realText(int $maxNbChars = 200, int $indexSize = 2): string
     {
@@ -111,7 +112,7 @@ abstract class Text extends Base
     }
 
     /**
-     * @param int $indexSize
+     * @param  int $indexSize
      * @return array
      */
     protected function getConsecutiveWords(int $indexSize): array
@@ -154,7 +155,7 @@ abstract class Text extends Base
     }
 
     /**
-     * @param string $text
+     * @param  string $text
      * @return array|bool
      */
     protected static function explode(string $text): array|bool
@@ -163,7 +164,7 @@ abstract class Text extends Base
     }
 
     /**
-     * @param string[]|null $words
+     * @param  string[]|null $words
      * @return string
      */
     protected static function implode(?array $words = null): string
@@ -172,7 +173,7 @@ abstract class Text extends Base
     }
 
     /**
-     * @param string $text
+     * @param  string $text
      * @return int
      */
     protected static function strlen(string $text): int
@@ -181,7 +182,7 @@ abstract class Text extends Base
     }
 
     /**
-     * @param string $word
+     * @param  string $word
      * @return bool
      */
     protected static function validStart(string $word): bool
@@ -195,7 +196,7 @@ abstract class Text extends Base
     }
 
     /**
-     * @param string $text
+     * @param  string $text
      * @return string
      */
     protected static function appendEnd(string $text): string

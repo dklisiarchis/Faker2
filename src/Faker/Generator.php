@@ -17,14 +17,14 @@ use function sprintf;
 
 /**
  * @property string $name
- * @method string name(string $gender = null)
+ * @method   string name(string $gender = null)
  * @property string $firstName
- * @method string firstName(string $gender = null)
+ * @method   string firstName(string $gender = null)
  * @property string $firstNameMale
  * @property string $firstNameFemale
  * @property string $lastName
  * @property string $title
- * @method string title(string $gender = null)
+ * @method   string title(string $gender = null)
  * @property string $titleMale
  * @property string $titleFemale
  *
@@ -58,29 +58,29 @@ use function sprintf;
  *
  * @property string $creditCardType
  * @property string $creditCardNumber
- * @method string creditCardNumber($type = null, $formatted = false, $separator = '-')
+ * @method   string creditCardNumber($type = null, $formatted = false, $separator = '-')
  * @property DateTime $creditCardExpirationDate
  * @property string $creditCardExpirationDateString
  * @property array $creditCardDetails
  * @property string $bankAccountNumber
- * @method string iban($countryCode = null, $prefix = '', $length = null)
+ * @method   string iban($countryCode = null, $prefix = '', $length = null)
  * @property string $swiftBicNumber
  * @property string $vat
  *
  * @property string $word
  * @property string|array $words
- * @method string|array words($nb = 3, $asText = false)
- * @method string word()
+ * @method   string|array words($nb = 3, $asText = false)
+ * @method   string word()
  * @property string $sentence
- * @method string sentence($nbWords = 6, $variableNbWords = true)
+ * @method   string sentence($nbWords = 6, $variableNbWords = true)
  * @property string|array $sentences
- * @method string|array sentences($nb = 3, $asText = false)
+ * @method   string|array sentences($nb = 3, $asText = false)
  * @property string $paragraph
- * @method string paragraph($nbSentences = 3, $variableNbSentences = true)
+ * @method   string paragraph($nbSentences = 3, $variableNbSentences = true)
  * @property string|array $paragraphs
- * @method string|array paragraphs($nb = 3, $asText = false)
+ * @method   string|array paragraphs($nb = 3, $asText = false)
  * @property string $text
- * @method string text($maxNbChars = 200)
+ * @method   string text($maxNbChars = 200)
  *
  * @method string realText($maxNbChars = 200, $indexSize = 2)
  *
@@ -92,13 +92,13 @@ use function sprintf;
  * @property string $safeEmailDomain
  * @property string $userName
  * @property string $password
- * @method string password($minLength = 6, $maxLength = 20)
+ * @method   string password($minLength = 6, $maxLength = 20)
  * @property string $domainName
  * @property string $domainWord
  * @property string $tld
  * @property string $url
  * @property string $slug
- * @method string slug($nbWords = 6, $variableNbWords = true)
+ * @method   string slug($nbWords = 6, $variableNbWords = true)
  * @property string $ipv4
  * @property string $ipv6
  * @property string $localIpv4
@@ -120,24 +120,24 @@ use function sprintf;
  * @property string    $year
  * @property string    $century
  * @property string    $timezone
- * @method string amPm($max = 'now')
- * @method string date($format = 'Y-m-d', $max = 'now')
- * @method string dayOfMonth($max = 'now')
- * @method string dayOfWeek($max = 'now')
- * @method string iso8601($max = 'now')
- * @method string month($max = 'now')
- * @method string monthName($max = 'now')
- * @method string time($format = 'H:i:s', $max = 'now')
- * @method int unixTime($max = 'now')
- * @method string year($max = 'now')
- * @method DateTime dateTime($max = 'now', $timezone = null)
- * @method DateTime dateTimeAd($max = 'now', $timezone = null)
- * @method DateTime dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null)
- * @method DateTime dateTimeInInterval($date = '-30 years', $interval = '+5 days', $timezone = null)
- * @method DateTime dateTimeThisCentury($max = 'now', $timezone = null)
- * @method DateTime dateTimeThisDecade($max = 'now', $timezone = null)
- * @method DateTime dateTimeThisYear($max = 'now', $timezone = null)
- * @method DateTime dateTimeThisMonth($max = 'now', $timezone = null)
+ * @method   string amPm($max = 'now')
+ * @method   string date($format = 'Y-m-d', $max = 'now')
+ * @method   string dayOfMonth($max = 'now')
+ * @method   string dayOfWeek($max = 'now')
+ * @method   string iso8601($max = 'now')
+ * @method   string month($max = 'now')
+ * @method   string monthName($max = 'now')
+ * @method   string time($format = 'H:i:s', $max = 'now')
+ * @method   int unixTime($max = 'now')
+ * @method   string year($max = 'now')
+ * @method   DateTime dateTime($max = 'now', $timezone = null)
+ * @method   DateTime dateTimeAd($max = 'now', $timezone = null)
+ * @method   DateTime dateTimeBetween($startDate = '-30 years', $endDate = 'now', $timezone = null)
+ * @method   DateTime dateTimeInInterval($date = '-30 years', $interval = '+5 days', $timezone = null)
+ * @method   DateTime dateTimeThisCentury($max = 'now', $timezone = null)
+ * @method   DateTime dateTimeThisDecade($max = 'now', $timezone = null)
+ * @method   DateTime dateTimeThisYear($max = 'now', $timezone = null)
+ * @method   DateTime dateTimeThisMonth($max = 'now', $timezone = null)
  *
  * @property string $md5
  * @property string $sha1
@@ -148,33 +148,33 @@ use function sprintf;
  * @property string $languageCode
  * @property string $currencyCode
  * @property boolean $boolean
- * @method boolean boolean($chanceOfGettingTrue = 50)
+ * @method   boolean boolean($chanceOfGettingTrue = 50)
  *
  * @property int    $randomDigit
  * @property int    $randomDigitNot
  * @property int    $randomDigitNotNull
  * @property string $randomLetter
  * @property string $randomAscii
- * @method int randomNumber($nbDigits = null, $strict = false)
- * @method int|string|null randomKey(array $array = array())
- * @method int numberBetween($min = 0, $max = 2147483647)
- * @method float randomFloat($nbMaxDecimals = null, $min = 0, $max = null)
- * @method mixed randomElement(array $array = array('a', 'b', 'c'))
- * @method array randomElements(array $array = array('a', 'b', 'c'), $count = 1, $allowDuplicates = false)
- * @method array|string shuffle($arg = '')
- * @method array shuffleArray(array $array = array())
- * @method string shuffleString($string = '', $encoding = 'UTF-8')
- * @method string numerify($string = '###')
- * @method string lexify($string = '????')
- * @method string bothify($string = '## ??')
- * @method string asciify($string = '****')
- * @method string regexify($regex = '')
- * @method string toLower($string = '')
- * @method string toUpper($string = '')
- * @method Generator optional($weight = 0.5, $default = null)
- * @method Generator unique($reset = false, $maxRetries = 10000)
- * @method Generator valid($validator = null, $maxRetries = 10000)
- * @method mixed passthrough($passthrough)
+ * @method   int randomNumber($nbDigits = null, $strict = false)
+ * @method   int|string|null randomKey(array $array = array())
+ * @method   int numberBetween($min = 0, $max = 2147483647)
+ * @method   float randomFloat($nbMaxDecimals = null, $min = 0, $max = null)
+ * @method   mixed randomElement(array $array = array('a', 'b', 'c'))
+ * @method   array randomElements(array $array = array('a', 'b', 'c'), $count = 1, $allowDuplicates = false)
+ * @method   array|string shuffle($arg = '')
+ * @method   array shuffleArray(array $array = array())
+ * @method   string shuffleString($string = '', $encoding = 'UTF-8')
+ * @method   string numerify($string = '###')
+ * @method   string lexify($string = '????')
+ * @method   string bothify($string = '## ??')
+ * @method   string asciify($string = '****')
+ * @method   string regexify($regex = '')
+ * @method   string toLower($string = '')
+ * @method   string toUpper($string = '')
+ * @method   Generator optional($weight = 0.5, $default = null)
+ * @method   Generator unique($reset = false, $maxRetries = 10000)
+ * @method   Generator valid($validator = null, $maxRetries = 10000)
+ * @method   mixed passthrough($passthrough)
  *
  * @method integer biasedNumberBetween($min = 0, $max = 100, $function = 'sqrt')
  *
@@ -194,7 +194,7 @@ use function sprintf;
  *
  * @property string $mimeType
  * @property string $fileExtension
- * @method string file($sourceDirectory = '/tmp', $targetDirectory = '/tmp', $fullPath = true)
+ * @method   string file($sourceDirectory = '/tmp', $targetDirectory = '/tmp', $fullPath = true)
  *
  * @method string imageUrl($width = 640, $height = 480, $category = null, $randomize = true, $word = null, $gray = false)
  * @method string image($dir = null, $width = 640, $height = 480, $category = null, $fullPath = true, $randomize = true, $word = null)
@@ -208,22 +208,22 @@ use function sprintf;
  * @property string $colorName
  *
  * @method string randomHtml($maxDepth = 4, $maxWidth = 4)
- *
  */
 class Generator implements FakerGeneratorInterface
 {
 
     /**
      * @param FakerProviderInterface[] $providers
-     * @param array $formatters
+     * @param array                    $formatters
      */
     public function __construct(
         protected array $providers = [],
         protected array $formatters = []
-    ) {}
+    ) {
+    }
 
     /**
-     * @param FakerProviderInterface $provider
+     * @param  FakerProviderInterface $provider
      * @return void
      */
     public function addProvider(FakerProviderInterface $provider): void
@@ -240,7 +240,7 @@ class Generator implements FakerGeneratorInterface
     }
 
     /**
-     * @param int|string|null $seed
+     * @param  int|string|null $seed
      * @return void
      */
     public function seed(int|string|null $seed = null): void
@@ -253,8 +253,8 @@ class Generator implements FakerGeneratorInterface
     }
 
     /**
-     * @param string $formatter
-     * @param array $arguments
+     * @param  string $formatter
+     * @param  array  $arguments
      * @return mixed
      */
     public function format(string $formatter, array $arguments = []): mixed
@@ -298,7 +298,7 @@ class Generator implements FakerGeneratorInterface
     }
 
     /**
-     * @param array $matches
+     * @param  array $matches
      * @return mixed
      */
     protected function callFormatWithMatches(array $matches): mixed
@@ -318,7 +318,7 @@ class Generator implements FakerGeneratorInterface
 
     /**
      * @param string $method
-     * @param array $attributes
+     * @param array  $attributes
      *
      * @return mixed
      */

@@ -16,7 +16,7 @@ class Miscellaneous extends Base
      * On date of 2017-03-26
      *
      * U+1F600 - U+1F637 as their UTF-8 Pairings
-     * @var string[]
+     * @var  string[]
      */
     protected static array $emoji = [
         '\uD83D\uDE00', '\uD83D\uDE01', '\uD83D\uDE02', '\uD83D\uDE03',
@@ -38,7 +38,7 @@ class Miscellaneous extends Base
     /**
      * @link https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
      * On date of 2016-04-22
-     * @var string[]
+     * @var  string[]
      */
     protected static array $languageCode = [
         'aa', 'ab', 'ae', 'af', 'ak', 'am', 'an', 'ar', 'as', 'av',
@@ -65,7 +65,7 @@ class Miscellaneous extends Base
     /**
      * @link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      * On date of 2014-10-19
-     * @var string[]
+     * @var  string[]
      */
     protected static array $countryCode = [
         'AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AO', 'AQ', 'AR',
@@ -98,7 +98,7 @@ class Miscellaneous extends Base
     /**
      * @link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
      * On date of 2014-10-19
-     * @var string[]
+     * @var  string[]
      */
     protected static array $countryISOAlpha3 = [
         'ABW', 'AFG', 'AGO', 'AIA', 'ALA', 'ALB', 'AND', 'ARE', 'ARG', 'ARM',
@@ -259,7 +259,7 @@ class Miscellaneous extends Base
 
     /**
      * @example 'cfcd208495d565ef66e7dff9f98764da'
-     * @return string
+     * @return  string
      */
     public static function md5(): string
     {
@@ -268,7 +268,7 @@ class Miscellaneous extends Base
 
     /**
      * @example 'b5d86317c2a144cd04d0d7c03b2b02666fafadf2'
-     * @return string
+     * @return  string
      */
     public static function sha1(): string
     {
@@ -277,7 +277,7 @@ class Miscellaneous extends Base
 
     /**
      * @example '85086017559ccc40638fcde2fecaf295e0de7ca51b7517b6aebeaaf75b4d4654'
-     * @return string
+     * @return  string
      */
     public static function sha256(): string
     {
@@ -286,7 +286,7 @@ class Miscellaneous extends Base
 
     /**
      * @example 'fr_FR'
-     * @return string
+     * @return  string
      */
     public static function locale(): string
     {
@@ -296,7 +296,7 @@ class Miscellaneous extends Base
     /**
      * @example 'FR'
      *
-     * @link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     * @link   https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      * @return string
      */
     public static function countryCode(): string
@@ -307,7 +307,7 @@ class Miscellaneous extends Base
     /**
      * @example 'FRA'
      *
-     * @link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
+     * @link   https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
      * @return string
      */
     public static function countryISOAlpha3(): string
@@ -317,7 +317,7 @@ class Miscellaneous extends Base
 
     /**
      * @example 'fr'
-     * @return string
+     * @return  string
      */
     public static function languageCode(): string
     {
@@ -327,7 +327,7 @@ class Miscellaneous extends Base
     /**
      * @example 'EUR'
      *
-     * @link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     * @link   https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      * @return string
      */
     public static function currencyCode(): string
@@ -338,7 +338,7 @@ class Miscellaneous extends Base
     /**
      * Returns an encoded Unicode Character between U+1F600 and U+1F637.
      *
-     * @link https://en.wikipedia.org/wiki/Emoji#Unicode_blocks
+     * @link   https://en.wikipedia.org/wiki/Emoji#Unicode_blocks
      * @return string
      */
     public static function emoji(): string

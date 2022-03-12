@@ -17,7 +17,9 @@ use function substr;
  */
 class Ean implements FakerCalculatorInterface
 {
-    /** @var string EAN validation pattern */
+    /**
+     * @var string EAN validation pattern 
+     */
     public const PATTERN = '/^(?:\d{8}|\d{13})$/';
 
     /**
@@ -25,7 +27,7 @@ class Ean implements FakerCalculatorInterface
      *
      * @see https://en.wikipedia.org/wiki/International_Article_Number
      *
-     * @param string $value
+     * @param  string $value
      * @return int
      */
     public static function checksum(string $value): int
@@ -49,7 +51,7 @@ class Ean implements FakerCalculatorInterface
      * Checks whether the provided number is an EAN compliant number and that
      * the checksum is correct.
      *
-     * @param string $value An EAN number
+     * @param  string $value An EAN number
      * @return bool
      */
     public static function isValid(string $value): bool

@@ -61,7 +61,7 @@ class Address extends Base
 
     /**
      * @example 'town'
-     * @return string
+     * @return  string
      */
     public static function citySuffix(): string
     {
@@ -70,7 +70,7 @@ class Address extends Base
 
     /**
      * @example 'Avenue'
-     * @return string
+     * @return  string
      */
     public static function streetSuffix(): string
     {
@@ -79,7 +79,7 @@ class Address extends Base
 
     /**
      * @example '791'
-     * @return string
+     * @return  string
      */
     public static function buildingNumber(): string
     {
@@ -88,7 +88,7 @@ class Address extends Base
 
     /**
      * @example 'Sashabury'
-     * @return string
+     * @return  string
      */
     public function city(): string
     {
@@ -99,7 +99,7 @@ class Address extends Base
 
     /**
      * @example 'Crist Parks'
-     * @return string
+     * @return  string
      */
     public function streetName(): string
     {
@@ -110,7 +110,7 @@ class Address extends Base
 
     /**
      * @example '791 Crist Parks'
-     * @return string
+     * @return  string
      */
     public function streetAddress(): string
     {
@@ -121,7 +121,7 @@ class Address extends Base
 
     /**
      * @example 86039-9874
-     * @return string
+     * @return  string
      */
     public static function postcode(): string
     {
@@ -130,7 +130,7 @@ class Address extends Base
 
     /**
      * @example '791 Crist Parks, Sashabury, IL 86039-9874'
-     * @return string
+     * @return  string
      */
     public function address(): string
     {
@@ -141,7 +141,7 @@ class Address extends Base
 
     /**
      * @example 'Japan'
-     * @return string
+     * @return  string
      */
     public static function country(): string
     {
@@ -150,9 +150,9 @@ class Address extends Base
 
     /**
      * @example '77.147489'
-     * @param float|int $min
-     * @param float|int $max
-     * @return float Uses signed degrees format (returns a float number between -90 and 90)
+     * @param   float|int $min
+     * @param   float|int $max
+     * @return  float Uses signed degrees format (returns a float number between -90 and 90)
      */
     public static function latitude(float|int $min = -90, float|int $max = 90): float
     {
@@ -161,9 +161,9 @@ class Address extends Base
 
     /**
      * @example '86.211205'
-     * @param float|int $min
-     * @param float|int $max
-     * @return float Uses signed degrees format (returns a float number between -180 and 180)
+     * @param   float|int $min
+     * @param   float|int $max
+     * @return  float Uses signed degrees format (returns a float number between -180 and 180)
      */
     public static function longitude(float|int $min = -180, float|int $max = 180): float
     {
@@ -172,7 +172,7 @@ class Address extends Base
 
     /**
      * @example array('77.147489', '86.211205')
-     * @return array  latitude, longitude
+     * @return  array  latitude, longitude
      */
     public static function localCoordinates(): array
     {

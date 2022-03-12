@@ -16,7 +16,7 @@ class Iban implements FakerCalculatorInterface
     /**
      * Generates IBAN Checksum
      *
-     * @param string $value
+     * @param  string $value
      * @return string Checksum (numeric string)
      */
     public static function checksum(string $value): string
@@ -46,7 +46,7 @@ class Iban implements FakerCalculatorInterface
     /**
      * Converts letter to number
      *
-     * @param string $char
+     * @param  string $char
      * @return int
      */
     public static function alphaToNumber(string $char): int
@@ -57,7 +57,7 @@ class Iban implements FakerCalculatorInterface
     /**
      * Calculates mod97 on a numeric string
      *
-     * @param string $number Numeric string
+     * @param  string $number Numeric string
      * @return int
      */
     public static function mod97(string $number): int
@@ -72,7 +72,7 @@ class Iban implements FakerCalculatorInterface
     /**
      * Checks whether an IBAN has a valid checksum
      *
-     * @param string $value
+     * @param  string $value
      * @return boolean
      */
     public static function isValid(string $value): bool

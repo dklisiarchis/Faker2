@@ -49,6 +49,7 @@ class Company extends \Faker\Provider\Company
 
     /**
      * Source - http://www.careerplanner.com/ListOfJobs.cfm
+     *
      * @var string[]
      */
     protected static array $jobTitleFormat = [
@@ -84,7 +85,7 @@ class Company extends \Faker\Provider\Company
 
     /**
      * @link https://www.irs.gov/businesses/small-businesses-self-employed/how-eins-are-assigned-and-valid-ein-prefixes
-     * @var int[]
+     * @var  int[]
      */
     protected static array $einPrefixes = [
         01, 02, 03, 04, 05, 06, 10, 11, 12, 13, 14, 15, 16, 20, 21, 22, 23, 24, 25, 26, 27, 30, 31, 32, 33, 34, 35, 36,
@@ -94,7 +95,7 @@ class Company extends \Faker\Provider\Company
 
     /**
      * @example 'Robust full-range hub'
-     * @return string
+     * @return  string
      */
     public function catchPhrase(): string
     {
@@ -108,7 +109,7 @@ class Company extends \Faker\Provider\Company
 
     /**
      * @example 'integrate extensible convergence'
-     * @return string
+     * @return  string
      */
     public function bs(): string
     {
@@ -123,9 +124,9 @@ class Company extends \Faker\Provider\Company
     /**
      * Employer Identification Number (EIN)
      *
-     * @link https://en.wikipedia.org/wiki/Employer_Identification_Number
+     * @link    https://en.wikipedia.org/wiki/Employer_Identification_Number
      * @example '12-3456789'
-     * @return string
+     * @return  string
      */
     public static function ein(): string
     {

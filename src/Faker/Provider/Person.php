@@ -72,8 +72,8 @@ class Person extends Base
     protected static array $titleFemale = ['Mrs.', 'Ms.', 'Miss', 'Dr.', 'Prof.'];
 
     /**
-     * @param string|null $gender 'male', 'female' or null for any
-     * @return string
+     * @param   string|null $gender 'male', 'female' or null for any
+     * @return  string
      * @example 'John Doe'
      */
     public function name(?string $gender = null): string
@@ -90,8 +90,8 @@ class Person extends Base
     }
 
     /**
-     * @param string|null $gender 'male', 'female' or null for any
-     * @return string
+     * @param   string|null $gender 'male', 'female' or null for any
+     * @return  string
      * @example 'John'
      */
     public function firstName(?string $gender = null): string
@@ -123,7 +123,7 @@ class Person extends Base
 
     /**
      * @example 'Doe'
-     * @return string
+     * @return  string
      */
     public function lastName(): string
     {
@@ -132,8 +132,8 @@ class Person extends Base
 
     /**
      * @example 'Mrs.'
-     * @param string|null $gender 'male', 'female' or null for any
-     * @return string
+     * @param   string|null $gender 'male', 'female' or null for any
+     * @return  string
      */
     public function title(?string $gender = null): string
     {
@@ -148,7 +148,7 @@ class Person extends Base
 
     /**
      * @example 'Mr.'
-     * @return string
+     * @return  string
      */
     public static function titleMale(): string
     {
@@ -157,7 +157,7 @@ class Person extends Base
 
     /**
      * @example 'Mrs.'
-     * @return string
+     * @return  string
      */
     public static function titleFemale(): string
     {
