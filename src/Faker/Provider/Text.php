@@ -1,15 +1,51 @@
 <?php
+declare(strict_types=1);
 
 namespace Faker\Provider;
 
+use function array_shift;
+use function count;
+use function preg_replace;
+use function preg_match;
+use function explode;
+use function implode;
+use function function_exists;
+use function mb_strlen;
+use function strlen;
+
 abstract class Text extends Base
 {
-    protected static $baseText = '';
-    protected static $separator = ' ';
-    protected static $separatorLen = 1;
-    protected $explodedText;
-    protected $consecutiveWords = array();
-    protected static $textStartsWithUppercase = true;
+
+    /**
+     * Base text
+     * @var string
+     */
+    protected static string $baseText = '';
+
+    /**
+     * @var string
+     */
+    protected static string $separator = ' ';
+
+    /**
+     * @var int
+     */
+    protected static int $separatorLen = 1;
+
+    /**
+     * @var string[]|null
+     */
+    protected array $explodedText;
+
+    /**
+     * @var string[]
+     */
+    protected array $consecutiveWords = [];
+
+    /**
+     * @var bool
+     */
+    protected static bool $textStartsWithUppercase = true;
 
     /**
      * Generate a text string by the Markov chain algorithm.
@@ -19,14 +55,14 @@ abstract class Text extends Base
      * possible following words as the value.
      *
      * @example 'Alice, swallowing down her flamingo, and began by taking the little golden key'
-     * @param integer $maxNbChars Maximum number of characters the text should contain (minimum: 10)
-     * @param integer $indexSize  Determines how many words are considered for the generation of the next word.
+     * @param int $maxNbChars Maximum number of characters the text should contain (minimum: 10)
+     * @param int $indexSize  Determines how many words are considered for the generation of the next word.
      *                             The minimum is 1, and it produces a higher level of randomness, although the
      *                             generated text usually doesn't make sense. Higher index sizes (up to 5)
      *                             produce more correct text, at the price of less randomness.
      * @return string
      */
-    public function realText($maxNbChars = 200, $indexSize = 2)
+    public function realText(int $maxNbChars = 200, int $indexSize = 2): string
     {
         if ($maxNbChars < 10) {
             throw new \InvalidArgumentException('maxNbChars must be at least 10');
@@ -41,7 +77,7 @@ abstract class Text extends Base
         }
 
         $words = $this->getConsecutiveWords($indexSize);
-        $result = array();
+        $result = [];
         $resultLength = 0;
         // take a random starting point
         $next = static::randomKey($words);
@@ -74,12 +110,16 @@ abstract class Text extends Base
         return static::appendEnd($result);
     }
 
-    protected function getConsecutiveWords($indexSize)
+    /**
+     * @param int $indexSize
+     * @return array
+     */
+    protected function getConsecutiveWords(int $indexSize): array
     {
         if (!isset($this->consecutiveWords[$indexSize])) {
             $parts = $this->getExplodedText();
-            $words = array();
-            $index = array();
+            $words = [];
+            $index = [];
             for ($i = 0; $i < $indexSize; $i++) {
                 $index[] = array_shift($parts);
             }
@@ -87,7 +127,7 @@ abstract class Text extends Base
             for ($i = 0, $count = count($parts); $i < $count; $i++) {
                 $stringIndex = static::implode($index);
                 if (!isset($words[$stringIndex])) {
-                    $words[$stringIndex] = array();
+                    $words[$stringIndex] = [];
                 }
                 $word = $parts[$i];
                 $words[$stringIndex][] = $word;
@@ -101,40 +141,64 @@ abstract class Text extends Base
         return $this->consecutiveWords[$indexSize];
     }
 
-    protected function getExplodedText()
+    /**
+     * @return string[]
+     */
+    protected function getExplodedText(): array
     {
-        if ($this->explodedText === null) {
+        if (!isset($this->explodedText)) {
             $this->explodedText = static::explode(preg_replace('/\s+/u', ' ', static::$baseText));
         }
 
         return $this->explodedText;
     }
 
-    protected static function explode($text)
+    /**
+     * @param string $text
+     * @return array|bool
+     */
+    protected static function explode(string $text): array|bool
     {
         return explode(static::$separator, $text);
     }
 
-    protected static function implode($words)
+    /**
+     * @param string[]|null $words
+     * @return string
+     */
+    protected static function implode(?array $words = null): string
     {
         return implode(static::$separator, $words);
     }
 
-    protected static function strlen($text)
+    /**
+     * @param string $text
+     * @return int
+     */
+    protected static function strlen(string $text): int
     {
         return function_exists('mb_strlen') ? mb_strlen($text, 'UTF-8') : strlen($text);
     }
 
-    protected static function validStart($word)
+    /**
+     * @param string $word
+     * @return bool
+     */
+    protected static function validStart(string $word): bool
     {
         $isValid = true;
         if (static::$textStartsWithUppercase) {
             $isValid = preg_match('/^\p{Lu}/u', $word);
+            return (bool) $isValid;
         }
         return $isValid;
     }
 
-    protected static function appendEnd($text)
+    /**
+     * @param string $text
+     * @return string
+     */
+    protected static function appendEnd(string $text): string
     {
         return preg_replace("/([ ,-:;\x{2013}\x{2014}]+$)/us", '', $text).'.';
     }

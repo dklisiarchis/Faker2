@@ -1,6 +1,16 @@
 <?php
+declare(strict_types=1);
 
 namespace Faker\Provider;
+
+use LengthException;
+
+use function str_repeat;
+use function strlen;
+use function str_split;
+use function sprintf;
+use function array_sum;
+use function array_walk;
 
 /**
  * @see http://en.wikipedia.org/wiki/EAN-13
@@ -8,7 +18,12 @@ namespace Faker\Provider;
  */
 class Barcode extends Base
 {
-    private function ean($length = 13)
+
+    /**
+     * @param int $length
+     * @return string
+     */
+    private function ean(int $length = 13): string
     {
         $code = static::numerify(str_repeat('#', $length - 1));
 
@@ -20,11 +35,11 @@ class Barcode extends Base
      *
      * @param string $input
      *
-     * @return integer
+     * @return int
      */
-    protected static function eanChecksum($input)
+    protected static function eanChecksum(string $input): int
     {
-        $sequence = (strlen($input) + 1) === 8 ? array(3, 1) : array(1, 3);
+        $sequence = (strlen($input) + 1) === 8 ? [3, 1] : [1, 3];
         $sums = 0;
         foreach (str_split($input) as $n => $digit) {
             $sums += $digit * $sequence[$n % 2];
@@ -37,18 +52,18 @@ class Barcode extends Base
      * @link http://en.wikipedia.org/wiki/International_Standard_Book_Number#ISBN-10_check_digits
      *
      * @param  string           $input ISBN without check-digit
-     * @throws \LengthException When wrong input length passed
+     * @throws LengthException When wrong input length passed
      *
-     * @return integer Check digit
+     * @return string Check digit
      */
-    protected static function isbnChecksum($input)
+    protected static function isbnChecksum(string $input): string
     {
         // We're calculating check digit for ISBN-10
         // so, the length of the input should be 9
         $length = 9;
 
         if (strlen($input) !== $length) {
-            throw new \LengthException(sprintf('Input length should be equal to %d', $length));
+            throw new LengthException(sprintf('Input length should be equal to %d', $length));
         }
 
         $digits = str_split($input);
@@ -61,7 +76,7 @@ class Barcode extends Base
         $result = (11 - array_sum($digits) % 11) % 11;
 
         // 10 is replaced by X
-        return ($result < 10)?$result:'X';
+        return ($result < 10) ? (string) $result : 'X';
     }
 
     /**
@@ -69,9 +84,9 @@ class Barcode extends Base
      * @return string
      * @example '4006381333931'
      */
-    public function ean13()
+    public function ean13(): string
     {
-        return $this->ean(13);
+        return $this->ean();
     }
 
     /**
@@ -79,7 +94,7 @@ class Barcode extends Base
      * @return string
      * @example '73513537'
      */
-    public function ean8()
+    public function ean8(): string
     {
         return $this->ean(8);
     }
@@ -91,7 +106,7 @@ class Barcode extends Base
      * @return string
      * @example '4881416324'
      */
-    public function isbn10()
+    public function isbn10(): string
     {
         $code = static::numerify(str_repeat('#', 9));
 
@@ -105,7 +120,7 @@ class Barcode extends Base
      * @return string
      * @example '9790404436093'
      */
-    public function isbn13()
+    public function isbn13(): string
     {
         $code = '97' . static::numberBetween(8, 9) . static::numerify(str_repeat('#', 9));
 

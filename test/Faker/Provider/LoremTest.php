@@ -1,17 +1,21 @@
 <?php
+declare(strict_types=1);
 
 namespace Faker\Test\Provider;
 
 use Faker\Provider\Lorem;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 final class LoremTest extends TestCase
 {
+
     /**
-     * @expectedException \InvalidArgumentException
+     * @return void
      */
-    public function testTextThrowsExceptionWhenAskedTextSizeLessThan5()
+    public function testTextThrowsExceptionWhenAskedTextSizeLessThan5(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         Lorem::text(4);
     }
 
@@ -92,17 +96,17 @@ final class LoremTest extends TestCase
 final class TestableLorem extends Lorem
 {
 
-    public static function word()
+    public static function word(): string
     {
         return 'word';
     }
 
-    public static function sentence($nbWords = 5, $variableNbWords = true)
+    public static function sentence(int $nbWords = 5, bool $variableNbWords = true): string
     {
         return 'This is a test sentence.';
     }
 
-    public static function paragraph($nbSentences = 3, $variableNbSentences = true)
+    public static function paragraph(int $nbSentences = 3, bool $variableNbSentences = true): string
     {
         return 'This is a test paragraph. It has three sentences. Exactly three.';
     }

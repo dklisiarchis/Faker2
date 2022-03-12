@@ -2,25 +2,29 @@
 
 namespace Faker;
 
+use Faker\Api\FakerGeneratorInterface;
+use Faker\Api\FakerProviderInterface;
+
 /**
  * This generator returns a default value for all called properties
  * and methods. It works with Faker\Generator\Base->optional().
  */
-class DefaultGenerator
+class DefaultGenerator implements FakerGeneratorInterface
 {
-    protected $default;
 
-    public function __construct($default = null)
-    {
-        $this->default = $default;
-    }
+    /**
+     * @param string|int|float|null $default
+     */
+    public function __construct(
+        protected string|int|float|null $default = null
+    ) {}
 
     /**
      * @param string $attribute
      *
-     * @return mixed
+     * @return string|int|float|null
      */
-    public function __get($attribute)
+    public function __get(string $attribute): string|int|float|null
     {
         return $this->default;
     }
@@ -29,10 +33,18 @@ class DefaultGenerator
      * @param string $method
      * @param array $attributes
      *
-     * @return mixed
+     * @return string|int|float|null
      */
-    public function __call($method, $attributes)
+    public function __call(string $method, array $attributes): string|int|float|null
     {
         return $this->default;
+    }
+
+    public function addProvider(FakerProviderInterface $provider): void
+    {}
+
+    public function getProviders(): array
+    {
+        return [];
     }
 }

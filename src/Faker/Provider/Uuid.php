@@ -1,14 +1,23 @@
 <?php
+declare(strict_types=1);
 
 namespace Faker\Provider;
+
+use function mt_rand;
+use function md5;
+use function array_values;
+use function pack;
+use function unpack;
+use function sprintf;
 
 class Uuid extends Base
 {
     /**
      * Generate name based md5 UUID (version 3).
      * @example '7e57d004-2b97-0e7a-b45f-5387367791cd'
+     * @return string
      */
-    public static function uuid()
+    public static function uuid(): string
     {
         // fix for compatibility with 32bit architecture; each mt_rand call is restricted to 32bit
         // two such calls will cause 64bits of randomness regardless of architecture
@@ -38,7 +47,7 @@ class Uuid extends Base
         $tHi |= (3 << 12);
 
         // cast to string
-        $uuid = sprintf(
+        return sprintf(
             '%08x-%04x-%04x-%02x%02x-%02x%02x%02x%02x%02x%02x',
             $tLo,
             $tMi,
@@ -52,7 +61,5 @@ class Uuid extends Base
             $byte[14],
             $byte[15]
         );
-
-        return $uuid;
     }
 }

@@ -2,33 +2,57 @@
 
 namespace Faker;
 
+use Closure;
+use OverflowException;
+
+use Faker\Api\FakerGeneratorInterface;
+use Faker\Api\FakerProviderInterface;
+
+use function is_null;
+use function is_callable;
+use function call_user_func;
+use function call_user_func_array;
+use function sprintf;
+
 /**
  * Proxy for other generators, to return only valid values. Works with
  * Faker\Generator\Base->valid()
  */
-class ValidGenerator
+class ValidGenerator implements FakerGeneratorInterface
 {
-    protected $generator;
-    protected $validator;
-    protected $maxRetries;
 
     /**
-     * @param Generator $generator
-     * @param callable|null $validator
-     * @param integer $maxRetries
+     * @param Generator     $generator
+     * @param Closure|null  $validator
+     * @param integer       $maxRetries
      */
-    public function __construct(Generator $generator, $validator = null, $maxRetries = 10000)
-    {
+    public function __construct(
+        protected FakerGeneratorInterface $generator,
+        protected ?Closure                $validator = null,
+        protected int                     $maxRetries = 10000
+    ) {
         if (is_null($validator)) {
-            $validator = function () {
+            $this->validator = function () {
                 return true;
             };
         } elseif (!is_callable($validator)) {
             throw new \InvalidArgumentException('valid() only accepts callables as first argument');
         }
-        $this->generator = $generator;
-        $this->validator = $validator;
-        $this->maxRetries = $maxRetries;
+    }
+
+    /**
+     * @param FakerProviderInterface $provider
+     * @return void
+     */
+    public function addProvider(FakerProviderInterface $provider): void
+    {}
+
+    /**
+     * @return FakerProviderInterface[]
+     */
+    public function getProviders(): array
+    {
+        return [];
     }
 
     /**
@@ -37,9 +61,9 @@ class ValidGenerator
      *
      * @return mixed
      */
-    public function __get($attribute)
+    public function __get(string $attribute): mixed
     {
-        return $this->__call($attribute, array());
+        return $this->__call($attribute, []);
     }
 
     /**
@@ -49,14 +73,14 @@ class ValidGenerator
      *
      * @return mixed
      */
-    public function __call($name, $arguments)
+    public function __call(string $name, array $arguments): mixed
     {
         $i = 0;
         do {
-            $res = call_user_func_array(array($this->generator, $name), $arguments);
+            $res = call_user_func_array([$this->generator, $name], $arguments);
             $i++;
             if ($i > $this->maxRetries) {
-                throw new \OverflowException(sprintf('Maximum retries of %d reached without finding a valid value', $this->maxRetries));
+                throw new OverflowException(sprintf('Maximum retries of %d reached without finding a valid value', $this->maxRetries));
             }
         } while (!call_user_func($this->validator, $res));
 

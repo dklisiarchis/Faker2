@@ -1,8 +1,11 @@
 <?php
+declare(strict_types=1);
+
 namespace Faker\Test\Provider;
 
 use Faker\Provider\en_US\Text;
 use Faker\Generator;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 final class TextTest extends TestCase
@@ -10,12 +13,13 @@ final class TextTest extends TestCase
     /**
      * @var Generator
      */
-    private $generator;
+    private Generator $generator;
 
     /**
      * @before
+     * @return void
      */
-    public function buildGenerator()
+    public function buildGenerator(): void
     {
         $generator = new Generator();
         $generator->addProvider(new Text($generator));
@@ -35,35 +39,38 @@ final class TextTest extends TestCase
      *           [200]
      *           [500]
      */
-    public function testTextMaxLength($length)
+    public function testTextMaxLength(int $length): void
     {
-        $this->assertLessThan($length, $this->generator->realText($length));
+        $this->assertLessThanOrEqual($length, strlen($this->generator->realText($length)));
     }
 
-    public function testTextMaxIndex()
+    /**
+     * @return void
+     */
+    public function testTextMaxIndex(): void
     {
-        $this->setExpectedException('InvalidArgumentException');
-
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('indexSize must be at most 5');
         $this->generator->realText(200, 11);
-
-        $this->fail('The index should be less than or equal to 5.');
     }
 
-    public function testTextMinIndex()
+    /**
+     * @return void
+     */
+    public function testTextMinIndex(): void
     {
-        $this->setExpectedException('InvalidArgumentException');
-
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('indexSize must be at least 1');
         $this->generator->realText(200, 0);
-
-        $this->fail('The index should be greater than or equal to 1.');
     }
 
-    public function testTextMinLength()
+    /**
+     * @return void
+     */
+    public function testTextMinLength(): void
     {
-        $this->setExpectedException('InvalidArgumentException');
-
+        $this->expectException(InvalidArgumentException::class);
+        $this->expectExceptionMessage('maxNbChars must be at least 10');
         $this->generator->realText(9);
-
-        $this->fail('The text should be at least 10 characters.');
     }
 }

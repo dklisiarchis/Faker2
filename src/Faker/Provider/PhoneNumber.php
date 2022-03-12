@@ -1,4 +1,5 @@
 <?php
+declare(strict_types=1);
 
 namespace Faker\Provider;
 
@@ -6,12 +7,17 @@ use Faker\Calculator\Luhn;
 
 class PhoneNumber extends Base
 {
-    protected static $formats = array('###-###-###');
+
+    /**
+     * @var string[]
+     */
+    protected static array $formats = ['###-###-###'];
 
     /**
      * @example '555-123-546'
+     * @return string
      */
-    public function phoneNumber()
+    public function phoneNumber(): string
     {
         return static::numerify($this->generator->parse(static::randomElement(static::$formats)));
     }
@@ -20,9 +26,9 @@ class PhoneNumber extends Base
      * @example +27113456789
      * @return string
      */
-    public function e164PhoneNumber()
+    public function e164PhoneNumber(): string
     {
-        $formats = array('+%############');
+        $formats = ['+%############'];
         return static::numerify($this->generator->parse(static::randomElement($formats)));
     }
 
@@ -32,11 +38,11 @@ class PhoneNumber extends Base
      * @link http://en.wikipedia.org/wiki/International_Mobile_Station_Equipment_Identity
      * @link http://imei-number.com/imei-validation-check/
      * @example '720084494799532'
-     * @return int $imei
+     * @return string $imei
      */
-    public function imei()
+    public function imei(): string
     {
-        $imei = (string) static::numerify('##############');
+        $imei = static::numerify('##############');
         $imei .= Luhn::computeCheckDigit($imei);
         return $imei;
     }

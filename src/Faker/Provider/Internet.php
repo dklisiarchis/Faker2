@@ -1,94 +1,145 @@
 <?php
+declare(strict_types=1);
 
 namespace Faker\Provider;
 
+use Exception;
+
+use function preg_replace;
+use function preg_match;
+use function strtolower;
+use function class_exists;
+use function array_keys;
+use function array_values;
+use function trim;
+use function str_replace;
+use function str_repeat;
+use function rtrim;
+use function mt_rand;
+use function join;
+use function long2ip;
+use function implode;
+use function sprintf;
+use function ip2long;
+use function dechex;
+
 class Internet extends Base
 {
-    protected static $freeEmailDomain = array('gmail.com', 'yahoo.com', 'hotmail.com');
-    protected static $tld = array('com', 'com', 'com', 'com', 'com', 'com', 'biz', 'info', 'net', 'org');
 
-    protected static $userNameFormats = array(
+    /**
+     * @var string[]
+     */
+    protected static array $freeEmailDomain = ['gmail.com', 'yahoo.com', 'hotmail.com'];
+
+    /**
+     * @var string[]
+     */
+    protected static array $tld = ['com', 'com', 'com', 'com', 'com', 'com', 'biz', 'info', 'net', 'org'];
+
+    /**
+     * @var string[]
+     */
+    protected static array $userNameFormats = [
         '{{lastName}}.{{firstName}}',
         '{{firstName}}.{{lastName}}',
         '{{firstName}}##',
         '?{{lastName}}',
-    );
-    protected static $emailFormats = array(
+    ];
+
+    /**
+     * @var string[]
+     */
+    protected static array $emailFormats = [
         '{{userName}}@{{domainName}}',
         '{{userName}}@{{freeEmailDomain}}',
-    );
-    protected static $urlFormats = array(
-        'http://www.{{domainName}}/',
-        'http://{{domainName}}/',
-        'http://www.{{domainName}}/{{slug}}',
-        'http://www.{{domainName}}/{{slug}}',
+    ];
+
+    /**
+     * @var string[]
+     */
+    protected static array $urlFormats = array(
+        'https://www.{{domainName}}/',
+        'https://{{domainName}}/',
         'https://www.{{domainName}}/{{slug}}',
-        'http://www.{{domainName}}/{{slug}}.html',
-        'http://{{domainName}}/{{slug}}',
-        'http://{{domainName}}/{{slug}}',
-        'http://{{domainName}}/{{slug}}.html',
+        'https://www.{{domainName}}/{{slug}}',
+        'https://www.{{domainName}}/{{slug}}',
+        'https://www.{{domainName}}/{{slug}}.html',
+        'https://{{domainName}}/{{slug}}',
+        'https://{{domainName}}/{{slug}}',
+        'https://{{domainName}}/{{slug}}.html',
         'https://{{domainName}}/{{slug}}.html',
     );
 
     /**
      * @example 'jdoe@acme.biz'
+     * @return string
      */
-    public function email()
+    public function email(): string
     {
         $format = static::randomElement(static::$emailFormats);
-
         return $this->generator->parse($format);
     }
 
     /**
+     * @return string
+     * @throws Exception
      * @example 'jdoe@example.com'
      */
-    final public function safeEmail()
+    final public function safeEmail(): string
     {
         return preg_replace('/\s/u', '', $this->userName() . '@' . static::safeEmailDomain());
     }
 
     /**
+     * @return string
+     * @throws Exception
      * @example 'jdoe@gmail.com'
      */
-    public function freeEmail()
+    public function freeEmail(): string
     {
         return preg_replace('/\s/u', '', $this->userName() . '@' . static::freeEmailDomain());
     }
 
     /**
+     * @return string
+     * @throws Exception
      * @example 'jdoe@dawson.com'
      */
-    public function companyEmail()
+    public function companyEmail(): string
     {
         return preg_replace('/\s/u', '', $this->userName() . '@' . $this->domainName());
     }
 
     /**
      * @example 'gmail.com'
+     * @return string
      */
-    public static function freeEmailDomain()
+    public static function freeEmailDomain(): string
     {
         return static::randomElement(static::$freeEmailDomain);
     }
 
     /**
      * @example 'example.org'
+     * @return string
      */
-    final public static function safeEmailDomain()
+    final public static function safeEmailDomain(): string
     {
-        $domains = array(
+        $domains = [
             'example.com',
             'example.org',
             'example.net'
-        );
+        ];
 
         return static::randomElement($domains);
     }
+
     /**
+     * @return string
+     * @throws Exception
      * @example 'jdoe'
      */
-    public function userName()
+    public function userName(): string
     {
         $format = static::randomElement(static::$userNameFormats);
         $username = static::bothify($this->generator->parse($format));
@@ -97,19 +148,21 @@ class Internet extends Base
 
         // check if transliterate() didn't support the language and removed all letters
         if (trim($username, '._') === '') {
-            throw new \Exception('userName failed with the selected locale. Try a different locale or activate the "intl" PHP extension.');
+            throw new Exception('userName failed with the selected locale. Try a different locale or activate the "intl" PHP extension.');
         }
 
         // clean possible trailing dots from first/last names
         $username = str_replace('..', '.', $username);
-        $username = rtrim($username, '.');
-
-        return $username;
+        return rtrim($username, '.');
     }
+
     /**
+     * @param int $minLength
+     * @param int $maxLength
+     * @return string
      * @example 'fY4èHdZv68'
      */
-    public function password($minLength = 6, $maxLength = 20)
+    public function password(int $minLength = 6, int $maxLength = 20): string
     {
         $pattern = str_repeat('*', $this->numberBetween($minLength, $maxLength));
 
@@ -117,17 +170,21 @@ class Internet extends Base
     }
 
     /**
+     * @return string
+     * @throws Exception
      * @example 'tiramisu.com'
      */
-    public function domainName()
+    public function domainName(): string
     {
         return $this->domainWord() . '.' . $this->tld();
     }
 
     /**
+     * @return string
+     * @throws Exception
      * @example 'faber'
      */
-    public function domainWord()
+    public function domainWord(): string
     {
         $lastName = $this->generator->format('lastName');
 
@@ -135,27 +192,27 @@ class Internet extends Base
 
         // check if transliterate() didn't support the language and removed all letters
         if (trim($lastName, '._') === '') {
-            throw new \Exception('domainWord failed with the selected locale. Try a different locale or activate the "intl" PHP extension.');
+            throw new Exception('domainWord failed with the selected locale. Try a different locale or activate the "intl" PHP extension.');
         }
 
         // clean possible trailing dot from last name
-        $lastName = rtrim($lastName, '.');
-
-        return $lastName;
+        return rtrim($lastName, '.');
     }
 
     /**
      * @example 'com'
+     * @return string
      */
-    public function tld()
+    public function tld(): string
     {
         return static::randomElement(static::$tld);
     }
 
     /**
      * @example 'http://www.runolfsdottir.com/'
+     * @return string
      */
-    public function url()
+    public function url(): string
     {
         $format = static::randomElement(static::$urlFormats);
 
@@ -163,9 +220,12 @@ class Internet extends Base
     }
 
     /**
+     * @param int $nbWords
+     * @param bool $variableNbWords
+     * @return string
      * @example 'aut-repellat-commodi-vel-itaque-nihil-id-saepe-nostrum'
      */
-    public function slug($nbWords = 6, $variableNbWords = true)
+    public function slug(int $nbWords = 6, bool $variableNbWords = true): string
     {
         if ($nbWords <= 0) {
             return '';
@@ -180,20 +240,22 @@ class Internet extends Base
 
     /**
      * @example '237.149.115.38'
+     * @return string
      */
-    public function ipv4()
+    public function ipv4(): string
     {
         return long2ip(mt_rand(0, 1) == 0 ? mt_rand(-2147483648, -2) : mt_rand(16777216, 2147483647));
     }
 
     /**
      * @example '35cd:186d:3e23:2986:ef9f:5b41:42a4:e6f1'
+     * @return string
      */
-    public function ipv6()
+    public function ipv6(): string
     {
         $res = array();
         for ($i=0; $i < 8; $i++) {
-            $res []= dechex(mt_rand(0, "65535"));
+            $res []= dechex(mt_rand(0, 65535));
         }
 
         return join(':', $res);
@@ -201,8 +263,9 @@ class Internet extends Base
 
     /**
      * @example '10.1.1.17'
+     * @return string
      */
-    public static function localIpv4()
+    public static function localIpv4(): string
     {
         if (static::numberBetween(0, 1) === 0) {
             // 10.x.x.x range
@@ -215,18 +278,22 @@ class Internet extends Base
 
     /**
      * @example '32:F1:39:2F:D6:18'
+     * @return string
      */
-    public static function macAddress()
+    public static function macAddress(): string
     {
         for ($i=0; $i<6; $i++) {
             $mac[] = sprintf('%02X', static::numberBetween(0, 0xff));
         }
-        $mac = implode(':', $mac);
 
-        return $mac;
+        return implode(':', $mac);
     }
 
-    protected static function transliterate($string)
+    /**
+     * @param string $string
+     * @return mixed
+     */
+    protected static function transliterate(string $string): mixed
     {
         if (0 === preg_match('/[^A-Za-z0-9_.]/', $string)) {
             return $string;
@@ -242,12 +309,16 @@ class Internet extends Base
         return preg_replace('/[^A-Za-z0-9_.]/u', '', $transString);
     }
 
-    protected static function toAscii($string)
+    /**
+     * @param string $string
+     * @return string
+     */
+    protected static function toAscii(string $string): string
     {
         static $arrayFrom, $arrayTo;
 
         if (empty($arrayFrom)) {
-            $transliterationTable = array(
+            $transliterationTable = [
                 'Ĳ'=>'I', 'Ö'=>'O', 'Œ'=>'O', 'Ü'=>'U', 'ä'=>'a', 'æ'=>'a',
                 'ĳ'=>'i', 'ö'=>'o', 'œ'=>'o', 'ü'=>'u', 'ß'=>'s', 'ſ'=>'s',
                 'À'=>'A', 'Á'=>'A', 'Â'=>'A', 'Ã'=>'A', 'Ä'=>'A', 'Å'=>'A',
@@ -352,7 +423,7 @@ class Internet extends Base
                 'յ'=>'y', 'ն'=>'n', 'շ'=>'sh', 'ո'=>'o', 'չ'=>'ch', 'պ'=>'p',
                 'ջ'=>'j', 'ռ'=>'r', 'ս'=>'s', 'վ'=>'v', 'տ'=>'t', 'ր'=>'r',
                 'ց'=>'ts', 'փ'=>'p', 'ք'=>'q', 'և'=>'ev', 'օ'=>'o', 'ֆ'=>'f',
-            );
+            ];
             $arrayFrom = array_keys($transliterationTable);
             $arrayTo = array_values($transliterationTable);
         }

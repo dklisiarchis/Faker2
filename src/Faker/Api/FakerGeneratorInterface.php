@@ -1,21 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Faker;
+namespace Faker\Api;
 
 use DateTime;
-use InvalidArgumentException;
-
-use Faker\Api\FakerGeneratorInterface;
-use Faker\Api\FakerProviderInterface;
-
-use function preg_replace_callback;
-use function mt_srand;
-use function array_unshift;
-use function method_exists;
-use function sprintf;
+use Faker\Generator;
 
 /**
+ * Base generator interface
+ *
  * @property string $name
  * @method string name(string $gender = null)
  * @property string $firstName
@@ -176,7 +169,7 @@ use function sprintf;
  * @method Generator valid($validator = null, $maxRetries = 10000)
  * @method mixed passthrough($passthrough)
  *
- * @method integer biasedNumberBetween($min = 0, $max = 100, $function = 'sqrt')
+ * @method int biasedNumberBetween($min = 0, $max = 100, $function = 'sqrt')
  *
  * @property string $macProcessor
  * @property string $linuxProcessor
@@ -208,132 +201,20 @@ use function sprintf;
  * @property string $colorName
  *
  * @method string randomHtml($maxDepth = 4, $maxWidth = 4)
+ * @method mixed format(string $formatter, array $arguments = [])
+ * @method string parse(?string $string = '')
  *
  */
-class Generator implements FakerGeneratorInterface
+interface FakerGeneratorInterface
 {
-
-    /**
-     * @param FakerProviderInterface[] $providers
-     * @param array $formatters
-     */
-    public function __construct(
-        protected array $providers = [],
-        protected array $formatters = []
-    ) {}
-
     /**
      * @param FakerProviderInterface $provider
      * @return void
      */
-    public function addProvider(FakerProviderInterface $provider): void
-    {
-        array_unshift($this->providers, $provider);
-    }
+    public function addProvider(FakerProviderInterface $provider): void;
 
     /**
      * @return FakerProviderInterface[]
      */
-    public function getProviders(): array
-    {
-        return $this->providers;
-    }
-
-    /**
-     * @param int|string|null $seed
-     * @return void
-     */
-    public function seed(int|string|null $seed = null): void
-    {
-        if ($seed === null) {
-            mt_srand();
-        } else {
-            mt_srand((int) $seed, MT_RAND_PHP);
-        }
-    }
-
-    /**
-     * @param string $formatter
-     * @param array $arguments
-     * @return mixed
-     */
-    public function format(string $formatter, array $arguments = []): mixed
-    {
-        return call_user_func_array($this->getFormatter($formatter), $arguments);
-    }
-
-    /**
-     * @param string $formatter
-     *
-     * @return callable
-     */
-    public function getFormatter(string $formatter): callable
-    {
-        if (isset($this->formatters[$formatter])) {
-            return $this->formatters[$formatter];
-        }
-        foreach ($this->providers as $provider) {
-            if (method_exists($provider, $formatter)) {
-                $this->formatters[$formatter] = [$provider, $formatter];
-
-                return $this->formatters[$formatter];
-            }
-        }
-        throw new InvalidArgumentException(sprintf('Unknown formatter "%s"', $formatter));
-    }
-
-    /**
-     * Replaces tokens ('{{ tokenName }}') with the result from the token method call
-     *
-     * @param  string|null $string String that needs to bet parsed
-     * @return string
-     */
-    public function parse(?string $string = ''): string
-    {
-        if (null === $string) {
-            return '';
-        }
-
-        return preg_replace_callback('/\{\{\s?(\w+)\s?\}\}/u', [$this, 'callFormatWithMatches'], $string);
-    }
-
-    /**
-     * @param array $matches
-     * @return mixed
-     */
-    protected function callFormatWithMatches(array $matches): mixed
-    {
-        return $this->format($matches[1]);
-    }
-
-    /**
-     * @param string $attribute
-     *
-     * @return mixed
-     */
-    public function __get(string $attribute): mixed
-    {
-        return $this->format($attribute);
-    }
-
-    /**
-     * @param string $method
-     * @param array $attributes
-     *
-     * @return mixed
-     */
-    public function __call(string $method, array $attributes): mixed
-    {
-        return $this->format($method, $attributes);
-    }
-
-    public function __destruct()
-    {
-        $this->seed();
-    }
-
-    public function __wakeup()
-    {
-        $this->formatters = [];
-    }
+    public function getProviders(): array;
 }

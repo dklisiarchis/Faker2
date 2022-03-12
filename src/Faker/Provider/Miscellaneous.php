@@ -1,6 +1,13 @@
 <?php
+declare(strict_types=1);
 
 namespace Faker\Provider;
+
+use function mt_rand;
+use function md5;
+use function sha1;
+use function hash;
+use function json_decode;
 
 class Miscellaneous extends Base
 {
@@ -9,8 +16,9 @@ class Miscellaneous extends Base
      * On date of 2017-03-26
      *
      * U+1F600 - U+1F637 as their UTF-8 Pairings
+     * @var string[]
      */
-    protected static $emoji = array(
+    protected static array $emoji = [
         '\uD83D\uDE00', '\uD83D\uDE01', '\uD83D\uDE02', '\uD83D\uDE03',
         '\uD83D\uDE04', '\uD83D\uDE05', '\uD83D\uDE06', '\uD83D\uDE07',
         '\uD83D\uDE08', '\uD83D\uDE09', '\uD83D\uDE0A', '\uD83D\uDE0B',
@@ -25,13 +33,14 @@ class Miscellaneous extends Base
         '\uD83D\uDE2C', '\uD83D\uDE2D', '\uD83D\uDE2E', '\uD83D\uDE2F',
         '\uD83D\uDE30', '\uD83D\uDE31', '\uD83D\uDE32', '\uD83D\uDE33',
         '\uD83D\uDE34', '\uD83D\uDE35', '\uD83D\uDE36', '\uD83D\uDE37',
-    );
+    ];
 
     /**
      * @link https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes
      * On date of 2016-04-22
+     * @var string[]
      */
-    protected static $languageCode = array(
+    protected static array $languageCode = [
         'aa', 'ab', 'ae', 'af', 'ak', 'am', 'an', 'ar', 'as', 'av',
         'ay', 'az', 'ba', 'be', 'bg', 'bh', 'bi', 'bm', 'bn', 'bo',
         'br', 'bs', 'ca', 'ce', 'ch', 'co', 'cr', 'cs', 'cu', 'cv',
@@ -51,13 +60,14 @@ class Miscellaneous extends Base
         'tk', 'tl', 'tn', 'to', 'tr', 'ts', 'tt', 'tw', 'ty', 'ug',
         'uk', 'ur', 'uz', 've', 'vi', 'vo', 'wa', 'wo', 'xh', 'yi',
         'yo', 'za', 'zh', 'zu',
-    );
+    ];
 
     /**
      * @link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
      * On date of 2014-10-19
+     * @var string[]
      */
-    protected static $countryCode = array(
+    protected static array $countryCode = [
         'AD', 'AE', 'AF', 'AG', 'AI', 'AL', 'AM', 'AO', 'AQ', 'AR',
         'AS', 'AT', 'AU', 'AW', 'AX', 'AZ', 'BA', 'BB', 'BD', 'BE',
         'BF', 'BG', 'BH', 'BI', 'BJ', 'BL', 'BM', 'BN', 'BO', 'BQ',
@@ -83,13 +93,14 @@ class Miscellaneous extends Base
         'TN', 'TO', 'TR', 'TT', 'TV', 'TW', 'TZ', 'UA', 'UG', 'UM',
         'US', 'UY', 'UZ', 'VA', 'VC', 'VE', 'VG', 'VI', 'VN', 'VU',
         'WF', 'WS', 'YE', 'YT', 'ZA', 'ZM', 'ZW',
-    );
+    ];
 
     /**
      * @link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
      * On date of 2014-10-19
+     * @var string[]
      */
-    protected static $countryISOAlpha3 = array(
+    protected static array $countryISOAlpha3 = [
         'ABW', 'AFG', 'AGO', 'AIA', 'ALA', 'ALB', 'AND', 'ARE', 'ARG', 'ARM',
         'ASM', 'ATA', 'ATF', 'ATG', 'AUS', 'AUT', 'AZE', 'BDI', 'BEL', 'BEN',
         'BES', 'BFA', 'BGD', 'BGR', 'BHR', 'BHS', 'BIH', 'BLM', 'BLR', 'BLZ',
@@ -115,9 +126,12 @@ class Miscellaneous extends Base
         'TKL', 'TKM', 'TLS', 'TON', 'TTO', 'TUN', 'TUR', 'TUV', 'TWN', 'TZA',
         'UGA', 'UKR', 'UMI', 'URY', 'USA', 'UZB', 'VAT', 'VCT', 'VEN', 'VGB',
         'VIR', 'VNM', 'VUT', 'WLF', 'WSM', 'YEM', 'ZAF', 'ZMB', 'ZWE',
-    );
+    ];
 
-    protected static $localeData = array(
+    /**
+     * @var string[]
+     */
+    protected static array $localeData = [
         'aa_DJ', 'aa_ER', 'aa_ET',
         'af_NA', 'af_ZA', 'ak_GH',
         'am_ET', 'ar_AE', 'ar_BH', 'ar_DZ',
@@ -198,7 +212,7 @@ class Miscellaneous extends Base
         'wal_ET', 'wo_SN', 'xh_ZA',
         'yo_NG', 'zh_CN', 'zh_HK',
         'zh_MO', 'zh_SG', 'zh_TW', 'zu_ZA',
-    );
+    ];
 
     /**
      * @link https://en.wikipedia.org/wiki/ISO_4217
@@ -207,8 +221,10 @@ class Miscellaneous extends Base
      * With the following exceptions:
      * SVC has been replaced by the USD in 2001: https://en.wikipedia.org/wiki/Salvadoran_col%C3%B3n
      * ZWL has been suspended since 2009: https://en.wikipedia.org/wiki/Zimbabwean_dollar
+     *
+     * @var string[]
      */
-    protected static $currencyCode = array(
+    protected static array $currencyCode = [
         'AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN',
         'BAM', 'BBD', 'BDT', 'BGN', 'BHD', 'BIF', 'BMD', 'BND', 'BOB', 'BRL',
         'BSD', 'BTN', 'BWP', 'BYN', 'BZD', 'CAD', 'CDF', 'CHF', 'CLP', 'CNY',
@@ -225,7 +241,7 @@ class Miscellaneous extends Base
         'THB', 'TJS', 'TMT', 'TND', 'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH',
         'UGX', 'USD', 'UYU', 'UZS', 'VES', 'VND', 'VUV', 'WST', 'XAF', 'XCD',
         'XOF', 'XPF', 'YER', 'ZAR', 'ZMW',
-    );
+    ];
 
     /**
      * Return a boolean, true or false.
@@ -236,39 +252,43 @@ class Miscellaneous extends Base
      *
      * @example true
      */
-    public static function boolean($chanceOfGettingTrue = 50)
+    public static function boolean(int $chanceOfGettingTrue = 50): bool
     {
         return mt_rand(1, 100) <= $chanceOfGettingTrue;
     }
 
     /**
      * @example 'cfcd208495d565ef66e7dff9f98764da'
+     * @return string
      */
-    public static function md5()
+    public static function md5(): string
     {
-        return md5(mt_rand());
+        return md5((string) mt_rand());
     }
 
     /**
      * @example 'b5d86317c2a144cd04d0d7c03b2b02666fafadf2'
+     * @return string
      */
-    public static function sha1()
+    public static function sha1(): string
     {
-        return sha1(mt_rand());
+        return sha1((string) mt_rand());
     }
 
     /**
      * @example '85086017559ccc40638fcde2fecaf295e0de7ca51b7517b6aebeaaf75b4d4654'
+     * @return string
      */
-    public static function sha256()
+    public static function sha256(): string
     {
-        return hash('sha256', mt_rand());
+        return hash('sha256', (string) mt_rand());
     }
 
     /**
      * @example 'fr_FR'
+     * @return string
      */
-    public static function locale()
+    public static function locale(): string
     {
         return static::randomElement(static::$localeData);
     }
@@ -277,8 +297,9 @@ class Miscellaneous extends Base
      * @example 'FR'
      *
      * @link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     * @return string
      */
-    public static function countryCode()
+    public static function countryCode(): string
     {
         return static::randomElement(static::$countryCode);
     }
@@ -287,16 +308,18 @@ class Miscellaneous extends Base
      * @example 'FRA'
      *
      * @link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
+     * @return string
      */
-    public static function countryISOAlpha3()
+    public static function countryISOAlpha3(): string
     {
         return static::randomElement(static::$countryISOAlpha3);
     }
 
     /**
      * @example 'fr'
+     * @return string
      */
-    public static function languageCode()
+    public static function languageCode(): string
     {
         return static::randomElement(static::$languageCode);
     }
@@ -305,8 +328,9 @@ class Miscellaneous extends Base
      * @example 'EUR'
      *
      * @link https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+     * @return string
      */
-    public static function currencyCode()
+    public static function currencyCode(): string
     {
         return static::randomElement(static::$currencyCode);
     }
@@ -315,8 +339,9 @@ class Miscellaneous extends Base
      * Returns an encoded Unicode Character between U+1F600 and U+1F637.
      *
      * @link https://en.wikipedia.org/wiki/Emoji#Unicode_blocks
+     * @return string
      */
-    public static function emoji()
+    public static function emoji(): string
     {
         return json_decode('"' . static::randomElement(static::$emoji) . '"');
     }

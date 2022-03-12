@@ -1,25 +1,35 @@
 {
-    "name": "fzaninotto/faker",
+    "name": "dklis/faker2",
     "type": "library",
-    "description": "Faker is a PHP library that generates fake data for you.",
+    "description": "Faker2 is a fork of Faker, in PHP 8 code and with only 1 locale preloaded",
     "keywords": [
         "faker",
         "fixtures",
-        "data"
+        "data",
+        "faker2"
     ],
     "license": "MIT",
     "authors": [
         {
-            "name": "François Zaninotto"
+            "name": "François Zaninotto",
+            "role": "Original creator and maintainer of the Faker library"
+        },
+        {
+            "name": "Dimitris Klisiarchis",
+            "role": "Creator and maintainer of Faker2"
         }
     ],
     "require": {
-        "php": "^5.3.3 || ^7.0 || ^8.0"
+        "php": "^8.0",
+        "ext-dom": "*",
+        "ext-mbstring": "*",
+        "ext-curl": "*"
     },
     "require-dev": {
         "ext-intl": "*",
-        "phpunit/phpunit": "^4.8.35 || ^5.7",
-        "squizlabs/php_codesniffer": "^2.9.2"
+        "phpunit/phpunit": "^9.0",
+        "squizlabs/php_codesniffer": "^2.9.2",
+        "vimeo/psalm": "^4.22"
     },
     "autoload": {
         "psr-4": {
@@ -29,11 +39,6 @@
     "autoload-dev": {
         "psr-4": {
             "Faker\\Test\\": "test/Faker/"
-        }
-    },
-    "extra": {
-        "branch-alias": {
-            "dev-master": "1.9-dev"
         }
     },
     "config": {

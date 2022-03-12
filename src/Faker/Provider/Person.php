@@ -1,50 +1,82 @@
 <?php
+declare(strict_types=1);
 
 namespace Faker\Provider;
 
 class Person extends Base
 {
-    const GENDER_MALE = 'male';
-    const GENDER_FEMALE = 'female';
 
-    protected static $titleFormat = array(
+    /**
+     * @var string
+     */
+    public const GENDER_MALE = 'male';
+    public const GENDER_FEMALE = 'female';
+
+    /**
+     * @var string[]
+     */
+    protected static array $titleFormat = [
       '{{titleMale}}',
       '{{titleFemale}}',
-    );
+    ];
 
-    protected static $firstNameFormat = array(
+    /**
+     * @var string[]
+     */
+    protected static array $firstNameFormat = [
       '{{firstNameMale}}',
       '{{firstNameFemale}}',
-    );
+    ];
 
-    protected static $maleNameFormats = array(
+    /**
+     * @var string[]
+     */
+    protected static array $maleNameFormats = [
         '{{firstNameMale}} {{lastName}}',
-    );
+    ];
 
-    protected static $femaleNameFormats = array(
+    /**
+     * @var string[]
+     */
+    protected static array $femaleNameFormats = [
         '{{firstNameFemale}} {{lastName}}',
-    );
+    ];
 
-    protected static $firstNameMale = array(
+    /**
+     * @var string[]
+     */
+    protected static array $firstNameMale = [
         'John',
-    );
+    ];
 
-    protected static $firstNameFemale = array(
+    /**
+     * @var string[]
+     */
+    protected static array $firstNameFemale = [
         'Jane',
-    );
+    ];
 
-    protected static $lastName = array('Doe');
+    /**
+     * @var string[]
+     */
+    protected static array $lastName = ['Doe'];
 
-    protected static $titleMale = array('Mr.', 'Dr.', 'Prof.');
+    /**
+     * @var string[]
+     */
+    protected static array $titleMale = ['Mr.', 'Dr.', 'Prof.'];
 
-    protected static $titleFemale = array('Mrs.', 'Ms.', 'Miss', 'Dr.', 'Prof.');
+    /**
+     * @var string[]
+     */
+    protected static array $titleFemale = ['Mrs.', 'Ms.', 'Miss', 'Dr.', 'Prof.'];
 
     /**
      * @param string|null $gender 'male', 'female' or null for any
      * @return string
      * @example 'John Doe'
      */
-    public function name($gender = null)
+    public function name(?string $gender = null): string
     {
         if ($gender === static::GENDER_MALE) {
             $format = static::randomElement(static::$maleNameFormats);
@@ -62,7 +94,7 @@ class Person extends Base
      * @return string
      * @example 'John'
      */
-    public function firstName($gender = null)
+    public function firstName(?string $gender = null): string
     {
         if ($gender === static::GENDER_MALE) {
             return static::firstNameMale();
@@ -73,12 +105,18 @@ class Person extends Base
         return $this->generator->parse(static::randomElement(static::$firstNameFormat));
     }
 
-    public static function firstNameMale()
+    /**
+     * @return string
+     */
+    public static function firstNameMale(): string
     {
         return static::randomElement(static::$firstNameMale);
     }
 
-    public static function firstNameFemale()
+    /**
+     * @return string
+     */
+    public static function firstNameFemale(): string
     {
         return static::randomElement(static::$firstNameFemale);
     }
@@ -87,7 +125,7 @@ class Person extends Base
      * @example 'Doe'
      * @return string
      */
-    public function lastName()
+    public function lastName(): string
     {
         return static::randomElement(static::$lastName);
     }
@@ -97,7 +135,7 @@ class Person extends Base
      * @param string|null $gender 'male', 'female' or null for any
      * @return string
      */
-    public function title($gender = null)
+    public function title(?string $gender = null): string
     {
         if ($gender === static::GENDER_MALE) {
             return static::titleMale();
@@ -110,16 +148,18 @@ class Person extends Base
 
     /**
      * @example 'Mr.'
+     * @return string
      */
-    public static function titleMale()
+    public static function titleMale(): string
     {
         return static::randomElement(static::$titleMale);
     }
 
     /**
      * @example 'Mrs.'
+     * @return string
      */
-    public static function titleFemale()
+    public static function titleFemale(): string
     {
         return static::randomElement(static::$titleFemale);
     }

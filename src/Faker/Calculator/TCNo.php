@@ -2,9 +2,16 @@
 
 namespace Faker\Calculator;
 
+use Faker\Api\FakerCalculatorInterface;
 use InvalidArgumentException;
 
-class TCNo
+use function strlen;
+use function substr;
+use function str_split;
+use function array_map;
+use function intval;
+
+class TCNo implements FakerCalculatorInterface
 {
     /**
      * Generates Turkish Identity Number Checksum
@@ -12,19 +19,19 @@ class TCNo
      *
      * https://en.wikipedia.org/wiki/Turkish_Identification_Number
      *
-     * @param string $identityPrefix
+     * @param string $value
      * @return string Checksum (two digit)
      */
-    public static function checksum($identityPrefix)
+    public static function checksum(string $value): string
     {
-        if (strlen((string)$identityPrefix) !== 9) {
+        if (strlen($value) !== 9) {
             throw new InvalidArgumentException('Argument should be an integer and should be 9 digits.');
         }
 
         $oddSum = 0;
         $evenSum = 0;
 
-        $identityArray = array_map('intval', str_split($identityPrefix)); // Creates array from int
+        $identityArray = array_map('intval', str_split($value)); // Creates array from int
         foreach ($identityArray as $index => $digit) {
             if ($index % 2 == 0) {
                 $evenSum += $digit;
@@ -42,11 +49,11 @@ class TCNo
     /**
      * Checks whether a TCNo has a valid checksum
      *
-     * @param string $tcNo
+     * @param string $value
      * @return boolean
      */
-    public static function isValid($tcNo)
+    public static function isValid(string $value): bool
     {
-        return self::checksum(substr($tcNo, 0, -2)) === substr($tcNo, -2, 2);
+        return self::checksum(substr($value, 0, -2)) === substr($value, -2, 2);
     }
 }

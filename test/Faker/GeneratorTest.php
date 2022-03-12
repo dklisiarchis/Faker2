@@ -2,7 +2,9 @@
 
 namespace Faker\Test;
 
+use Faker\Api\FakerProviderInterface;
 use Faker\Generator;
+use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
 
 final class GeneratorTest extends TestCase
@@ -20,7 +22,7 @@ final class GeneratorTest extends TestCase
         $generator = new Generator;
         $provider = new FooProvider();
         $generator->addProvider($provider);
-        $this->assertInternalType('callable', $generator->getFormatter('fooFormatter'));
+        $this->assertIsCallable($generator->getFormatter('fooFormatter'));
     }
 
     public function testGetFormatterReturnsCorrectFormatter()
@@ -32,20 +34,23 @@ final class GeneratorTest extends TestCase
         $this->assertEquals($expected, $generator->getFormatter('fooFormatter'));
     }
 
+
     /**
-     * @expectedException InvalidArgumentException
+     * @return void
      */
-    public function testGetFormatterThrowsExceptionOnIncorrectProvider()
+    public function testGetFormatterThrowsExceptionOnIncorrectProvider(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $generator = new Generator;
         $generator->getFormatter('fooFormatter');
     }
 
     /**
-     * @expectedException InvalidArgumentException
+     * @return void
      */
-    public function testGetFormatterThrowsExceptionOnIncorrectFormatter()
+    public function testGetFormatterThrowsExceptionOnIncorrectFormatter(): void
     {
+        $this->expectException(InvalidArgumentException::class);
         $generator = new Generator;
         $provider = new FooProvider();
         $generator->addProvider($provider);
@@ -126,7 +131,7 @@ final class GeneratorTest extends TestCase
     }
 }
 
-final class FooProvider
+final class FooProvider implements FakerProviderInterface
 {
     public function fooFormatter()
     {
@@ -139,7 +144,7 @@ final class FooProvider
     }
 }
 
-final class BarProvider
+final class BarProvider implements FakerProviderInterface
 {
     public function fooFormatter()
     {
