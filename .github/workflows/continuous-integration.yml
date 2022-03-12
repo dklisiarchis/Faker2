@@ -45,9 +45,6 @@ jobs:
 
       - name: "Install dependencies with composer"
         run: "composer install --no-interaction --no-progress --no-suggest"
-
-      - name: "Run squizlabs/php_codesniffer"
-        run: "vendor/bin/phpcs --standard=PSR2 src -n"
         
       - name: Psalm – Static Analysis for PHP
         # You may pin to the exact commit or the version.
