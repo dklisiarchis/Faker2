@@ -19,7 +19,7 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "5.3"
+          - "8.0"
 
     steps:
       - name: "Checkout"
@@ -45,9 +45,16 @@ jobs:
 
       - name: "Install dependencies with composer"
         run: "composer install --no-interaction --no-progress --no-suggest"
-
-      - name: "Run squizlabs/php_codesniffer"
-        run: "vendor/bin/phpcs --standard=PSR2 src -n"
+        
+      - name: Psalm – Static Analysis for PHP
+        # You may pin to the exact commit or the version.
+        # uses: psalm/psalm-github-actions@2e545d38ff4387b370449e2673088cc8dc40cf1d
+        uses: psalm/psalm-github-actions@1.1.2
+        with:
+          # Whether or not to use Psalm’s security analysis
+          security_analysis: true
+          composer_require_dev: true
+          composer_ignore_platform_reqs: true  
 
   tests:
     name: "Tests"
@@ -57,15 +64,7 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "5.3"
-          - "5.4"
-          - "5.5"
-          - "5.6"
-          - "7.0"
-          - "7.1"
-          - "7.2"
-          - "7.3"
-          - "7.4"
+          - "8.0"
 
     steps:
       - name: "Checkout"
@@ -104,7 +103,7 @@ jobs:
     strategy:
       matrix:
         php-version:
-          - "7.4"
+          - "8.0"
 
     steps:
       - name: "Checkout"
